@@ -1,7 +1,7 @@
----
-title: "GW McElfresh"
-author: "Computational Biology PhD candidate"
----
+
+### GW McElfresh
+#Computational Biology PhD candidate
+
 
 ### Markdown Test
 
