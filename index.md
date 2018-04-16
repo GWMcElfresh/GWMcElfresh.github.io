@@ -1,11 +1,13 @@
-##Education
+## Education
+
 Current: PhD candidate at University of Kansas
 Undergraduate: Math & Physics at Drury University
 
-##Publications
+## Publications
+
 **GW McElfresh**, Christos Deligkaris. A vibrational entropy term for DNA docking with AutoDock. 2018.*Computational Biology and Chemistry*. doi.org/10.1016/j.compbiolchem.2018.03.027
 
-##Presentations
+## Presentations
 
 **GW McElfresh**<sup>*</sup>, Christian Ray. Reconstructing the Role of Inheritance: Growth Arrest and Stress Signaling. 2018. Biomedical Sciences Symposium.
 
