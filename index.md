@@ -1,3 +1,6 @@
+<h1> {{ title }} </h1>
+<p> {{ description }} </p>
+
 ## Education
 
 Current: PhD candidate at University of Kansas
