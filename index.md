@@ -9,7 +9,7 @@ Undergraduate: Math & Physics at Drury University
 
 ## Teaching Experience
 
-Genetics : Disscussion leader and primary grader. Summer 2017.
+Genetics : Discussion leader and primary grader. Summer 2017.
 
 Introduction to Cellular and Molecular Biology: Lab Teaching Assistant and auxillary lecture grader. Fall 2016 & Fall 2017.
 
