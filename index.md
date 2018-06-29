@@ -23,6 +23,8 @@ Introduction to Principles of Biology: Lab Teaching Assistant. Fall 2015.
 
 ## Presentations
 
+Huijing Wang<sup>*</sup>, **GW McElfresh**, Christian Ray. Insights into Bacterial Cellular Individuality with Regression on RNA-Seq Data. 2018. q-bio conference.
+
 **GW McElfresh**<sup>*</sup>, Christian Ray. Reconstructing the Role of Inheritance: Growth Arrest and Stress Signaling. 2018. Biomedical Sciences Symposium.
 
 **GW McElfresh**<sup>*</sup>, Christian Ray. Gene Expression Profile of E. Coli B REL606 Entering a Novel Antibiotic-Tolerant Persister State. 2016. Conference on Modeling of Protein Interactions
