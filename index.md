@@ -9,9 +9,11 @@ Undergraduate: Math & Physics at Drury University
 
 ## Teaching Experience
 
+Bioinformatics : Lab Teaching Assistant. Fall 2018.
+
 Genetics : Discussion leader and primary grader. Summer 2017.
 
-Introduction to Cellular and Molecular Biology: Lab Teaching Assistant and auxillary lecture grader. Fall 2016 & Fall 2017.
+Introduction to Cellular and Molecular Biology : Lab Teaching Assistant and auxillary lecture grader. Fall 2016 & Fall 2017.
 
 Introduction to Organismal Biology: Lab Teaching Assistant and auxillary lecture grader. Spring 2016.
 
@@ -20,6 +22,9 @@ Introduction to Principles of Biology: Lab Teaching Assistant. Fall 2015.
 ## Publications
 
 **GW McElfresh**, Christos Deligkaris. A vibrational entropy term for DNA docking with AutoDock. 2018.*Computational Biology and Chemistry*. doi.org/10.1016/j.compbiolchem.2018.03.027
+
+## Book Chapters
+ **GW McElfresh**, Christian Ray. Intergenerational Cellular Signal Transfer and Erasure. 2018. *The Interplay of Thermodynamics and Computation in Natural and Artificial Systems*. Currently in press.
 
 ## Presentations
 
