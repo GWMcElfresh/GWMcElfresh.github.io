@@ -11,62 +11,62 @@ Undergraduate: Math & Physics at Drury University
 
 ### Computational / Quantitative Skills
 
-• Mathematical models: biochemical (deterministic and stochastic), agent-based, multiscale  
+• Mathematical models: biochemical (deterministic and stochastic), agent-based, multiscale
 
-• Quantitative analysis of large datasets  
+• Quantitative analysis of large datasets
 
-• Transcriptomics data pipelines: read alignment, differential expression analysis (Tuxedo suite and kallisto/sleuth) 
+• Transcriptomics data pipelines: read alignment, differential expression analysis (Tuxedo suite and kallisto/sleuth)
 
-• Machine learning: classification, dimensionality reduction (PCA, MDS, UMAP, others), deep learning, adversarial learning, manifold learning, convolutional neural networks  
+• Machine learning: classification, dimensionality reduction (PCA, MDS, UMAP, others), deep learning, adversarial learning, manifold learning, convolutional neural networks
 
-• Image Analytics: FIJI/ImageJ, Pillow (Python)  
+• Image Analytics: FIJI/ImageJ, Pillow (Python)
 
-• Docking: Protein/Protein (high- and low-resolution docking), template-based docking, partial structure/interface docking, small molecule screening, DNA-small molecule docking  
+• Docking: Protein/Protein (high- and low-resolution docking), template-based docking, partial structure/interface docking, small molecule screening, DNA-small molecule docking
 
-• Molecular Dynamics: Small molecule MD simulations using a variety of force fields  
+• Molecular Dynamics: Small molecule MD simulations using a variety of force fields
 
-• Statistical data analysis: linear and nonlinear regression, power analysis, multiple testing cor-rection, parametric and non-parametric tests, bootstrapping and other resampling/permutation methods, estimators (kernel density estimation, etc.), statistical in-ference, information theory and distribution divergence  
+• Statistical data analysis: linear and nonlinear regression, power analysis, multiple testing cor-rection, parametric and non-parametric tests, bootstrapping and other resampling/permutation methods, estimators (kernel density estimation, etc.), statistical in-ference, information theory and distribution divergence
 
-• Mathematical and physical theory: criticality, stochastic processes, dynamical systems, branching processes, graph theory  
+• Mathematical and physical theory: criticality, stochastic processes, dynamical systems, branching processes, graph theory
 
-• Quantitative modeling: Physical phenomena simulations (VPython) and spatial biochemical models (PyURDME)  
+• Quantitative modeling: Physical phenomena simulations (VPython) and spatial biochemical models (PyURDME)
 
-• Protein design and ensemble generation (PyRosetta)  
+• Protein design and ensemble generation (PyRosetta)
 
-• Programming and scripting languages: Python (pandas, scikit-learn, numpy, scipy, tensor-flow), Mathematica, R, MATLAB, Perl, bash, C++, SQL, and FORTRAN  
+• Programming and scripting languages: Python (pandas, scikit-learn, numpy, scipy, tensor-flow), Mathematica, R, MATLAB, Perl, bash, C++, SQL, and FORTRAN
 
-• Markup languages and databases: XML, SBML, LaTeX, Markdown, YAML, HTML  
+• Markup languages and databases: XML, SBML, LaTeX, Markdown, YAML, HTML
 
-• High performance computing on clusters (SLURM, PBS and other queueing systems)  
+• High performance computing on clusters (SLURM, PBS and other queueing systems)
 
-• Version control and repositories: git, GitHub, BitBucket  
+• Version control and repositories: git, GitHub, BitBucket
 
-• Environment control: Docker, Anaconda  
+• Environment control: Docker, Anaconda
 
-• IDEs: vim, Jupyter, RStudio, Atom  
+• IDEs: vim, Jupyter, RStudio, Atom
 
-• Operating Systems: Windows, Mac, Linux (Ubuntu, Red Hat, CentOS, openSUSE)  
+• Operating Systems: Windows, Mac, Linux (Ubuntu, Red Hat, CentOS, openSUSE)
 
 ### Experimental Laboratory Skills
-• RNA-Seq (NGS): sample preservation and preparation for the Illumina platform  
+• RNA-Seq (NGS): sample preservation and preparation for the Illumina platform
 
-• Bacterial molecular genetics  
+• Bacterial molecular genetics
 
-• Basic experimental microbiology: culture, plating, antibiotic selection, cell quantification  
+• Basic experimental microbiology: culture, plating, antibiotic selection, cell quantification
 
 
 ### Other Domain-Specific Knowledge
-• Microbiology, biofilms, and microbial physiology  
+• Microbiology, biofilms, and microbial physiology
 
-• Population genetics and genomics  
+• Population genetics and genomics
 
-• Population dynamics and epidemiological modeling  
+• Population dynamics and epidemiological modeling
 
-• Monte Carlo methods  
+• Monte Carlo methods
 
-• Hypothesis-driven research design  
+• Hypothesis-driven research design
 
-• Scientific and technical writing  
+• Scientific and technical writing
 
 ## Teaching Experience
 
