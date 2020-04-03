@@ -11,9 +11,9 @@ Undergraduate: Math & Physics at Drury University
 
 ### Computational / Quantitative Skills
 
-• Mathematical models: biochemical (deterministic and stochastic), agent-based, multiscale 
-• Quantitative analysis of large datasets 
-• Transcriptomics data pipelines: read alignment, differential expression analysis (Tuxedo suite and kallisto/sleuth) 
+• Mathematical models: biochemical (deterministic and stochastic), agent-based, multiscale\
+• Quantitative analysis of large datasets  
+• Transcriptomics data pipelines: read alignment, differential expression analysis (Tuxedo suite and kallisto/sleuth) <br />
 • Machine learning: classification, dimensionality reduction (PCA, MDS, UMAP, others), deep learning, adversarial learning, manifold learning, convolutional neural networks
 
 • Image Analytics: FIJI/ImageJ, Pillow (Python)
