@@ -18,7 +18,7 @@ Undergraduate: Math & Physics at Drury University
 • Image Analytics: FIJI/ImageJ, Pillow (Python) <br />
 • Docking: Protein/Protein (high- and low-resolution docking), template-based docking, partial structure/interface docking, small molecule screening, DNA-small molecule docking <br />
 • Molecular Dynamics: Small molecule MD simulations using a variety of force fields <br />
-• Statistical data analysis: linear and nonlinear regression, power analysis, multiple testing cor-rection, parametric and non-parametric tests, bootstrapping and other resampling/permutation methods, estimators (kernel density estimation, etc.), statistical in-ference, information theory and distribution divergence <br />
+• Statistical data analysis: linear and nonlinear regression, power analysis, multiple testing cor-rection, parametric and non-parametric tests, bootstrapping and other resampling/permutation methods, estimators (kernel density estimation, etc.), statistical inference, information theory and distribution divergence <br />
 • Mathematical and physical theory: criticality, stochastic processes, dynamical systems, branching processes, graph theory <br />
 • Quantitative modeling: Physical phenomena simulations (VPython) and spatial biochemical models (PyURDME) <br />
 • Protein design and ensemble generation (PyRosetta) <br />
