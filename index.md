@@ -9,7 +9,7 @@ Undergraduate: Math & Physics at Drury University
 
 ## Skills 
 
-# Computational / Quantitative Skills
+### Computational / Quantitative Skills
 
 • Mathematical models: biochemical (deterministic and stochastic), agent-based, multiscale
 • Quantitative analysis of large datasets
@@ -30,12 +30,12 @@ Undergraduate: Math & Physics at Drury University
 • IDEs: vim, Jupyter, RStudio, Atom
 • Operating Systems: Windows, Mac, Linux (Ubuntu, Red Hat, CentOS, openSUSE)
 
-# Experimental Laboratory Skills
+### Experimental Laboratory Skills
 • RNA-Seq (NGS): sample preservation and preparation for the Illumina platform
 • Bacterial molecular genetics
 • Basic experimental microbiology: culture, plating, antibiotic selection, cell quantification
 
-# Other Domain-Specific Knowledge
+### Other Domain-Specific Knowledge
 • Microbiology, biofilms, and microbial physiology
 • Population genetics and genomics
 • Population dynamics and epidemiological modeling
