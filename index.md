@@ -1,4 +1,4 @@
-<h1> {{ title }} </h1> ![](https://scontent-msp1-1.cdninstagram.com/v/t51.2885-19/s150x150/90043375_209499150402264_225180608433750016_n.jpg?_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_ohc=Y2O4jnBP0yMAX_MfgeR&oh=c4a858363459bc7dd51c3cb81b6f755e&oe=5EB17F7A)
+<h1> {{ title }} ![](https://scontent-msp1-1.cdninstagram.com/v/t51.2885-19/s150x150/90043375_209499150402264_225180608433750016_n.jpg?_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_ohc=Y2O4jnBP0yMAX_MfgeR&oh=c4a858363459bc7dd51c3cb81b6f755e&oe=5EB17F7A) </h1> 
 <p> {{ description }} </p>
 
 ## Education
@@ -11,12 +11,9 @@ Undergraduate: Math & Physics at Drury University
 
 ### Computational / Quantitative Skills
 
-• Mathematical models: biochemical (deterministic and stochastic), agent-based, multiscale
-
-• Quantitative analysis of large datasets
-
-• Transcriptomics data pipelines: read alignment, differential expression analysis (Tuxedo suite and kallisto/sleuth)
-
+• Mathematical models: biochemical (deterministic and stochastic), agent-based, multiscale\
+• Quantitative analysis of large datasets\
+• Transcriptomics data pipelines: read alignment, differential expression analysis (Tuxedo suite and kallisto/sleuth)\
 • Machine learning: classification, dimensionality reduction (PCA, MDS, UMAP, others), deep learning, adversarial learning, manifold learning, convolutional neural networks
 
 • Image Analytics: FIJI/ImageJ, Pillow (Python)
