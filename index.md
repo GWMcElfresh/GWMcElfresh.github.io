@@ -3,7 +3,7 @@
 
 ## Education
 
-Current: Computational Biology PhD candidate at University of Kansas
+Computational Biology PhD from the University of Kansas
 
 Undergraduate: Math & Physics at Drury University
 
