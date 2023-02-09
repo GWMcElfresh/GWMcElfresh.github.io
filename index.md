@@ -61,7 +61,10 @@ Introduction to Principles of Biology: Lab Teaching Assistant. Fall 2015.
 
 Gregory J Boggy, **GW McElfresh**, Eisa Mahyari, Abigail B Ventura, Scott G Hansen, Louis J Picker, Benjamin N Bimber, BFF and cellhashR: analysis tools for accurate demultiplexing of cell hashing data, Bioinformatics, Volume 38, Issue 10, 15 May 2022, Pages 2791–2801, https://doi.org/10.1093/bioinformatics/btac213
 
-Huijing Wang, **GW McElfresh**<sup>*</sup>, Nishantha Wijesuriya, Adam Podgorny, Andrew D. Hecht, J. Christian J. Ray Overlapping stimulons arising in response to divergent stresses in Escherichia coli
+Huijing Wang, **GW McElfresh**<sup>*</sup>, Nishantha Wijesuriya, Adam Podgorny, Andrew D. Hecht, J. Christian J. Ray. Signatures of antibiotic tolerance and persistence in response to divergent stresses
+doi: https://doi.org/10.1101/689851
+
+Huijing Wang, **GW McElfresh**<sup>*</sup>, Nishantha Wijesuriya, Adam Podgorny, Andrew D. Hecht, J. Christian J. Ray. Overlapping stimulons arising in response to divergent stresses in Escherichia coli
 doi: https://doi.org/10.1101/2021.12.17.473201
 
 Chakravarty, D, **McElfresh, GW**, Kundrotas, PJ, Vakser, IA. How to choose templates for modeling of protein complexes: Insights from benchmarking template‐based docking. Proteins. 2020; 1– 12. https://doi.org/10.1002/prot.25875
