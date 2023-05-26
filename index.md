@@ -11,7 +11,7 @@ Undergraduate: Math & Physics at Drury University
 
 ### Computational / Quantitative Skills
 
-• Transcriptomic analysis and platform specific knowledge: bulk RNASeq, scRNASeq (10X), spatial RNASeq (NanoString GeoMx/CosMx). <br />
+• Transcriptomic analysis and platform specific knowledge: bulk RNASeq, scRNASeq (10X), spatial RNASeq (NanoString GeoMx/CosMx) <br />
 • Mathematical models: biochemical (deterministic and stochastic), agent-based, multiscale <br />
 • Quantitative analysis of large datasets <br />
 • Transcriptomics data pipelines: read alignment, differential expression analysis (Tuxedo suite and kallisto/sleuth) <br />
@@ -74,7 +74,7 @@ Chakravarty, D, **McElfresh, GW**, Kundrotas, PJ, Vakser, IA. How to choose temp
 <sup>*</sup> denotes first/co-first authorship.
 
 ## Book Chapters
- **GW McElfresh<sup>*</sup>**, Christian Ray. Intergenerational Cellular Signal Transfer and Erasure. 2018. *The Interplay of Thermodynamics and Computation in Natural and Artificial Systems*. Currently in press.
+ **GW McElfresh**<sup>*</sup>, Christian Ray. Intergenerational Cellular Signal Transfer and Erasure. 2018. *The Interplay of Thermodynamics and Computation in Natural and Artificial Systems*. Currently in press.
  
  <sup>*</sup> denotes first authorship.
 
@@ -83,7 +83,7 @@ Chakravarty, D, **McElfresh, GW**, Kundrotas, PJ, Vakser, IA. How to choose temp
 **GW McElfresh**, Kathleen Busman-Sahay, Michael Nekorchuk, Sebastian Benjamin, Gregory J Boggy, Shana Feltham,
 Eisa Mahyari, Scott G Hansen, Louis J Picker, Jacob D. Estes, Benjamin N Bimber. Integration of Spatial and Single Cell Transcriptomics Identifies Novel Pathologically Relevant Markers in SIV- and Mycobacterium tuberculosis-infected Rhesus Macaques. 2022. Nonhuman Primate Models for AIDS. 
 
-**GW McElfresh**, Gregory J Boggy, Eisa Mahyari, Michael Stutz, Abigail B Ventura, Scott G Hansen, Louis J Picker, Benjamin N Bimber. Single Cell Tnrascriptomic Profiling of Early Tuberculosis Infection and Granuloma Formation in Rhesus Macaque. 2021. Nonhuman Primate Models for AIDS. 
+**GW McElfresh**, Gregory J Boggy, Eisa Mahyari, Michael Stutz, Abigail B Ventura, Scott G Hansen, Louis J Picker, Benjamin N Bimber. Single Cell Transcriptomic Profiling of Early Tuberculosis Infection and Granuloma Formation in Rhesus Macaque. 2021. Nonhuman Primate Models for AIDS. 
 
 **GW McElfresh**, Brian Drawert, Christian Ray. Discrete timescales of effects that stress signals have on the cell cycle. 2019. q-bio conference.
 
