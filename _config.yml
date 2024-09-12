@@ -1,5 +1,5 @@
 remote_theme: pages-themes/tactile@v0.2.0
 theme: jekyll-theme-tactile
-title: GW McElfresh <img src="https://raw.githubusercontent.com/GWMcElfresh/GWMcElfresh.github.io/master/images/self/headshot.jpg" align="right">
+title: GW McElfresh <img src="https://raw.githubusercontent.com/GWMcElfresh/GWMcElfresh.github.io/master/images/self/headshot.jpg" align="right"; style="height: 48px;>
 description: Computational Biology PhD 
 location: Center for Computational Biology, University of Kansas
