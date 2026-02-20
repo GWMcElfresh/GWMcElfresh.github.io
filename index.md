@@ -31,9 +31,9 @@ My recent work integrates spatial and single-cell transcriptomics to identify no
 
 ## Highlights
 
-- **Publications**: Co-first author on studies of bacterial stress responses and antibiotic tolerance; contributor to bioinformatics tools for cell hashing demultiplexing
+- **Publications**: Cross-domain publications spanning computational proteomics, stochastic simulation, single-cell transcriptomics, spatial biology, and infectious disease
 - **Technical Expertise**: Deep experience with transcriptomic pipelines, machine learning, protein modeling, and high-performance computing
-- **Multidisciplinary Background**: Training in mathematics, physics, molecular biology, and computational biology
+- **Multidisciplinary Background**: Training in mathematics, physics, statistics, molecular biology, immunology, and computational biology
 
 ---
 

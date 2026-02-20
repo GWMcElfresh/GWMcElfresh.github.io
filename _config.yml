@@ -5,11 +5,11 @@ theme: jekyll-theme-tactile
 title: GW McElfresh
 tagline: Computational Biology PhD
 description: Computational biologist specializing in transcriptomics, spatial biology, and mathematical modeling
-location: Center for Computational Biology, University of Kansas
-email: mcelfreshgw@gmail.com # Update with your actual email
+location: Oregon Health & Science University / Oregon National Primate Research Center
+email: mcelfreshgw@gmail.com
 github_username: GWMcElfresh
-orcid: https://orcid.org/0000-0002-1948-7571 # Add your ORCID if you have one
-google_scholar: https://scholar.google.com/citations?user=FWOGc2oAAAAJ&hl=en&oi=ao # Add your Google Scholar ID
+orcid: 0000-0002-1948-7571
+google_scholar: FWOGc2oAAAAJ
 
 # Site metadata
 url: "https://GWMcElfresh.github.io"

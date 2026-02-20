@@ -1,0 +1,224 @@
+%% McElfresh CV — compiled with XeLaTeX or pdfLaTeX via MiKTeX
+%% Required package: moderncv (install via MiKTeX Package Manager)
+%% Compile: pdflatex McElfresh_CV.tex  (run twice for correct spacing)
+
+\documentclass[11pt, a4paper]{moderncv}
+
+% moderncv theme: 'casual', 'classic', 'banking', 'oldstyle', 'fancy'
+\moderncvstyle{banking}
+% color: 'black', 'blue', 'burgundy', 'green', 'grey', 'orange', 'purple', 'red'
+\moderncvcolor{purple}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scale=0.87]{geometry}   % adjust margins here
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage[colorlinks=true, urlcolor=blue, linkcolor=blue, citecolor=blue]{hyperref}
+\urlstyle{same}
+% Make all href links underlined and blue
+\let\oldhref\href
+\renewcommand{\href}[2]{\oldhref{#1}{\underline{#2}}}
+
+% ── Personal Information ───────────────────────────────────────────────────────
+\name{GW}{McElfresh}
+\title{Computational Biology PhD}
+\address{Oregon Health \& Science University}{Oregon National Primate Research Center}{}
+\email{mcelfreshgw@gmail.com}
+\homepage{gwmcelfresh.github.io}
+\social[github]{GWMcElfresh}
+\social[orcid]{0000-0002-1948-7571}
+% Uncomment and add LinkedIn if desired:
+% \social[linkedin]{yourprofile}
+\extrainfo{Google Scholar: \href{https://scholar.google.com/citations?user=FWOGc2oAAAAJ}{GW McElfresh}}
+
+% ── Document ───────────────────────────────────────────────────────────────────
+\begin{document}
+\makecvtitle
+
+% ── Professional Summary ───────────────────────────────────────────────────────
+\section{Professional Summary}
+Computational biologist with expertise spanning single-cell and spatial transcriptomics,
+mathematical modeling, machine learning, and structural biology. I build analytical
+frameworks that turn high-dimensional biological data into actionable insights---from
+co-developing a widely-used rhesus macaque immune reference atlas to authoring open-source
+tools adopted across the single-cell sequencing community. Equally comfortable designing a
+stochastic model, deploying an HPC pipeline at scale, or collaborating with wet-lab
+immunologists to answer disease-relevant questions. Seeking to apply multiscale analytical
+expertise to challenging problems at the intersection of biology, data science, and
+translational research.
+
+% ── Education ─────────────────────────────────────────────────────────────────
+\section{Education}
+\cventry{2015--2020}{PhD, Computational Biology}{University of Kansas}{Lawrence, KS}{}%
+  {Dissertation: \textit{Multiscale analyses of cellular signaling and regulation in response to multiple stress conditions}\\
+   Advisor: J.\ Christian Ray, PhD}
+
+\cventry{2011--2015}{B.S., Mathematics \& Physics}{Drury University}{Springfield, MO}{}%
+  {Graduated with honors}
+
+% ── Research Experience ────────────────────────────────────────────────────────
+\section{Research Experience}
+
+\cventry{Dec 2024--Present}{Computational Biologist 3}%
+  {Oregon National Primate Research Center / OHSU}{Portland, OR}{}%
+  {\begin{itemize}
+    \item Co-developed the \textbf{Rhesus Immune Reference Atlas (RIRA)}---the first immune-focused,
+          multi-tissue single-cell atlas for rhesus macaques---integrating data across $>$15 tissues
+          and providing a community-standard reference for reconciling transcriptional profiles with
+          established immune lineages (\textit{Cell Genomics}, 2025)
+    \item Designed and deployed end-to-end scRNA-seq pipelines for studies of HIV/SIV, Tuberculosis,
+          and Yellow Fever, enabling discovery of correlates of protection in NHP vaccine models
+    \item Authored and maintain open-source R packages hosted on GitHub:
+          \textbf{\href{https://github.com/BimberLab/cellhashR}{cellhashR}} (scRNA-seq cell-hashing demultiplexing, widely adopted across the single-cell community) and
+          \textbf{\href{https://github.com/bimberlabinternal/tcrClustR}{tcrClustR}} (TCR repertoire clustering and analysis)
+    \item Developed a supplemental alignment pipeline capturing allele-specific MHC-I regulation and
+          other immune signals systematically missed by dominant scRNA-seq workflows
+    \item Collaborated across multiple labs to translate high-dimensional data into biological
+          hypotheses and manuscript-ready analyses
+  \end{itemize}}
+
+\cventry{Nov 2020--Dec 2024}{Computational Biologist 2}%
+  {Oregon National Primate Research Center / OHSU}{Portland, OR}{}{\textit{Promoted to Computational Biologist 3, January 2025}}
+
+\cventry{2015--2020}{Graduate Researcher}%
+  {University of Kansas, Ray Lab}{Lawrence, KS}{}%
+  {\begin{itemize}
+    \item Characterized overlapping transcriptomic stress responses (stimulons) in \textit{E.\ coli}
+          using bulk RNA-seq, identifying shared gene programs across divergent stressors---co-first
+          author on two resulting manuscripts
+    \item Built stochastic and agent-based models of bacterial cell-cycle dynamics to reconstruct
+          inheritance of stress signals across generations
+    \item Developed and benchmarked template-based protein--protein docking approaches in
+          collaboration with the Vakser Lab (KU), contributing to structural modeling best-practice
+          guidelines
+  \end{itemize}}
+
+\cventry{Summer 2014}{Undergraduate Researcher}%
+  {University of Missouri, Zou Lab}{Columbia, MO}{}%
+  {Developed multi-target molecular docking methods for protein kinase inhibitor selectivity studies;
+   presented at the University of Missouri Summer Undergraduate Research Symposium}
+
+\cventry{2013--2015}{Undergraduate Researcher}%
+  {Drury University, Deligkaris Lab}{Springfield, MO}{}%
+  {Derived and implemented a vibrational entropy correction for DNA--small molecule docking in
+   AutoDock, improving binding free energy predictions; published as first author in
+   \textit{Computational Biology and Chemistry} (2018)}
+
+% ── Technical Skills ──────────────────────────────────────────────────────────
+\section{Technical Skills}
+
+\cvitem{Transcriptomics}{Bulk RNA-seq, scRNA-seq (10X Genomics), spatial transcriptomics
+  (NanoString GeoMx/CosMx); DESeq2, edgeR, kallisto/sleuth, Seurat, Scanpy, STAR}
+
+\cvitem{Machine Learning}{PCA, UMAP, t-SNE; classification, clustering; CNNs, autoencoders,
+  deep neural networks (TensorFlow, PyTorch); Bayesian \& frequentist inference}
+
+\cvitem{Mathematical Modeling}{Stochastic biochemical models (Gillespie, CME), agent-based
+  models, dynamical systems, graph theory, network analysis}
+
+\cvitem{Structural Biology}{Protein--protein docking (template-based \& \textit{ab initio}),
+  small molecule docking (AutoDock, Vina), molecular dynamics, protein design (PyRosetta)}
+
+\cvitem{Programming}{Python (expert: pandas, numpy, scipy, scikit-learn, TensorFlow, PyTorch),
+  R (advanced: Bioconductor), MATLAB, Mathematica, C++, bash, Perl, SQL, FORTRAN}
+
+\cvitem{Infrastructure}{Git/GitHub/BitBucket, Docker, Singularity/Apptainer, SLURM/PBS HPC}
+
+\cvitem{Data Formats}{LaTeX, Markdown, YAML, XML, SBML, HTML/CSS, Parquet, JSON, SQL}
+
+\cvitem{Lab Skills}{RNA-seq library preparation (Illumina), bacterial molecular genetics,
+  microbiology culture \& quantification, aseptic technique}
+
+% ── Publications ──────────────────────────────────────────────────────────────
+\section{Selected Publications}
+\cvitem{\dag}{Co-first / first authorship}
+
+\cvitem{2025}{Mahyari E, Boggy GJ, \textbf{McElfresh GW}, et al.
+  Enhanced interpretation of immune cell phenotype and function through a rhesus macaque
+  single-cell atlas.
+  \textit{Cell Genomics}, 5(5).}
+
+\cvitem{2025}{Bimber BN, Sunshine J, \textbf{McElfresh GW}, et al.
+  Viral escape mutations do not account for non-protection from SIVmac239 challenge in
+  RhCMV/SIV vaccinated rhesus macaques.
+  \textit{Frontiers in Immunology}, 15: 1444621.}
+
+\cvitem{2023}{Wang H, \textbf{McElfresh GW}\dag, et al.
+  Signatures of antibiotic tolerance and persistence in response to divergent stresses.
+  \textit{bioRxiv} 2023.02.05.527212.}
+
+\cvitem{2022}{Boggy GJ, \textbf{McElfresh GW}, et al.
+  BFF and cellhashR: analysis tools for accurate demultiplexing of cell hashing data.
+  \textit{Bioinformatics}, 38(10), 2791--2801.
+  \href{https://doi.org/10.1093/bioinformatics/btac213}{doi:10.1093/bioinformatics/btac213}}
+
+\cvitem{2020}{Chakravarty D, \textbf{McElfresh GW}, et al.
+  How to choose templates for modeling of protein complexes.
+  \textit{Proteins}, 88(9), 1070--1081.
+  \href{https://doi.org/10.1002/prot.25875}{doi:10.1002/prot.25875}}
+
+\cvitem{2018}{\textbf{McElfresh GW}\dag, Deligkaris C.
+  A vibrational entropy term for DNA docking with AutoDock.
+  \textit{Computational Biology and Chemistry}, 73, 9--14.
+  \href{https://doi.org/10.1016/j.compbiolchem.2018.03.027}{doi:10.1016/j.compbiolchem.2018.03.027}}
+
+\cvitem{2018}{\textbf{McElfresh GW}\dag, Ray JCJ.
+  Intergenerational Cellular Signal Transfer and Erasure.
+  In: \textit{The Interplay of Thermodynamics and Computation in Natural and Artificial Systems}.}
+
+\medskip
+\cvitem{}{Full list: \href{https://scholar.google.com/citations?user=FWOGc2oAAAAJ}{Google Scholar}
+  \quad|\quad \href{https://orcid.org/0000-0002-1948-7571}{ORCID 0000-0002-1948-7571}}
+
+% ── Selected Presentations ────────────────────────────────────────────────────
+\section{Selected Presentations}
+
+\cvitem{2022}{\textbf{McElfresh GW} et al. Integration of Spatial and Single Cell Transcriptomics
+  Identifies Novel Pathologically Relevant Markers in SIV- and \textit{M.\ tuberculosis}-infected
+  Rhesus Macaques. \textit{Nonhuman Primate Models for AIDS}.}
+
+\cvitem{2021}{\textbf{McElfresh GW} et al. Single Cell Transcriptomic Profiling of Early
+  Tuberculosis Infection and Granuloma Formation in Rhesus Macaque.
+  \textit{Nonhuman Primate Models for AIDS}.}
+
+\cvitem{2019}{\textbf{McElfresh GW}, Drawert B, Ray JCJ. Discrete timescales of effects that
+  stress signals have on the cell cycle. \textit{q-bio Conference}.}
+
+\cvitem{2018}{\textbf{McElfresh GW}, Drawert B, Ray JCJ. Reconstructing the Role of Inheritance
+  in Stress Signaling. \textit{Modeling of Protein Interactions}.}
+
+\cvitem{2014}{\textbf{McElfresh GW}, Deligkaris C. Inclusion of Empirical Entropic Contributions
+  to Binding Free Energy of Ligand-DNA Systems During Docking.
+  \textit{ACS Midwest Regional Meeting}.}
+
+% ── Teaching ──────────────────────────────────────────────────────────────────
+\section{Teaching Experience}
+
+\cventry{F2018, F2019, S2020}{Lab Teaching Assistant --- Bioinformatics}%
+  {University of Kansas}{Lawrence, KS}{}%
+  {Led hands-on computational labs covering sequence alignment, phylogenetics, and transcriptomic
+   analysis pipelines}
+
+\cventry{Summer 2017}{Discussion Leader \& Primary Grader --- Genetics}%
+  {University of Kansas}{Lawrence, KS}{}{}
+
+\cventry{F2016, F2017}{Lab Teaching Assistant --- Intro Cellular \& Molecular Biology}%
+  {University of Kansas}{Lawrence, KS}{}{}
+
+\cventry{S2016}{Lab Teaching Assistant --- Intro Organismal Biology}%
+  {University of Kansas}{Lawrence, KS}{}{}
+
+\cventry{F2015}{Lab Teaching Assistant --- Intro Principles of Biology}%
+  {University of Kansas}{Lawrence, KS}{}{}
+
+% ── Awards & Service ──────────────────────────────────────────────────────────
+\section{Awards \& Honors}
+\cvitem{2019}{Graduate Research Award, University of Kansas}
+\cvitem{2015}{Outstanding Physics Student Researcher, Drury University}
+
+\section{Service}
+\cvitem{Reviewing}{Peer reviewer, \textit{Nature Communications}}
+\cvitem{Open Source}{Contributor and maintainer, cellhashR, RIRA, CellMembrane, and other open-source tools}
+
+\end{document}

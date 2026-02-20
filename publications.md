@@ -14,6 +14,9 @@ permalink: /publications/
 
 ### 2025
 
+**Benjamin S, McElfresh GW, Kaza M, Boggy GJ, Varco-Merth B, et al.**
+An immune-focused supplemental alignment pipeline captures information missed from dominant single-cell RNA-seq analyses, including allele-specific MHC-I regulation
+
 **Mahyari E, Boggy GJ, McElfresh GW, Kaza M, Benjamin S, Varco-Merth B, et al.**  
 Enhanced interpretation of immune cell phenotype and function through a rhesus macaque single-cell atlas.  
 *Cell Genomics*, 2025; 5(5).  
@@ -151,8 +154,8 @@ McElfresh GW, Huang SY, Zou X
 
 ## Metrics & Impact
 
-- **Google Scholar**: [Link to profile]<!-- Update with actual link -->
-- **ORCID**: [Your ORCID]<!-- Update with actual ORCID -->
+- **Google Scholar**: [GW McElfresh](https://scholar.google.com/citations?user=FWOGc2oAAAAJ&hl=en&oi=ao)
+- **ORCID**: [0000-0002-1948-7571](https://orcid.org/0000-0002-1948-7571)
 - **Research Areas**: Computational Biology, Transcriptomics, Infectious Disease, Bacterial Physiology, Structural Biology
 
 ---

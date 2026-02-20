@@ -8,9 +8,15 @@ permalink: /cv/
 
 **GW McElfresh**  
 Computational Biology PhD  
-Center for Computational Biology, University of Kansas
+Oregon Health & Science University / Oregon National Primate Research Center
 
-[Download PDF Version](#) <!-- Add link to PDF CV when available -->
+[Download PDF Version](/assets/cv/McElfresh_CV.pdf)
+
+---
+
+## Professional Summary
+
+Computational biologist with expertise spanning single-cell and spatial transcriptomics, mathematical modeling, machine learning, and structural biology. I build analytical frameworks that turn high-dimensional biological data into actionable insights. From co-developing a widely-used rhesus macaque immune reference atlas to authoring open-source tools that have been adopted across the single-cell sequencing community. Equally comfortable designing a stochastic model, deploying an HPC pipeline at scale, or collaborating with wet-lab immunologists to answer disease-relevant questions. Seeking to apply multiscale analytical expertise to challenging problems at the intersection of biology, data science, and translational research.
 
 ---
 
@@ -31,30 +37,35 @@ Drury University, Springfield, MO
 
 ### Professional Experience
 
-**Oregon Health and Science University/\nOregon National Primate Research Center** 
+**Oregon National Primate Research Center / Oregon Health & Science University**  
+*Computational Biologist 3* | December 2024 – Present  
+*Computational Biologist 2* | November 2020 – December 2024
 
-- Transcriptomics & Systems Biology: Specializes in high-dimensional analysis of immune cell dynamics and correlates of protection for diseases such as HIV/SIV, Tuberculosis, and Yellow Fever.
-- Reference Atlas Development: Co-developed the Rhesus Immune Reference Atlas (RIRA), the first immune-focused single-cell multi-tissue atlas for rhesus macaques, which helps reconcile transcriptional profiles with established immune lineages.
-- Software & Tool Creation: Contributes to open-source tool development, including cellhashR, a tool designed for demultiplexing cell-hashing data in single-cell RNA sequencing.
+- Co-developed the **Rhesus Immune Reference Atlas (RIRA)** — the first immune-focused, multi-tissue single-cell atlas for rhesus macaques — integrating data across >15 tissues and providing a community-standard reference for reconciling transcriptional profiles with established immune lineages (published *Cell Genomics*, 2025)
+- Designed and deployed end-to-end single-cell RNA-seq pipelines for studies of HIV/SIV, Tuberculosis, and Yellow Fever, enabling discovery of correlates of protection in NHP vaccine models
+- Authored and maintain open-source R packages on GitHub: **[cellhashR](https://github.com/BimberLab/cellhashR)** (scRNA-seq cell-hashing demultiplexing, widely adopted across the single-cell community) and **[tcrClustR](https://github.com/GWMcElfresh/tcrClustR)** (TCR repertoire clustering and analysis)
+- Developed a supplemental alignment pipeline capturing allele-specific MHC-I regulation and other immune signals systematically missed by dominant scRNA-seq workflows
+- Collaborated with experimental immunologists and virologists across multiple labs to translate high-dimensional data into biological hypotheses and manuscript-ready analyses
 
-### Graduate Work
-**University of Kansas** | 2015 - Present  
-*Advisor: Christian Ray*
+### Graduate Research
+**University of Kansas** | 2015–2020  
+*Advisor: J. Christian Ray, PhD*
 
-- Developed computational pipelines for transcriptomic data analysis
-- Applied mathematical modeling to bacterial stress responses and antibiotic tolerance
+- Characterized overlapping transcriptomic stress responses (stimulons) in *E. coli* using bulk RNA-seq, identifying shared gene expression programs across divergent stressors — co-first author on two resulting manuscripts
+- Built stochastic and agent-based models of bacterial cell-cycle dynamics to reconstruct the inheritance of stress signals across generations
+- Developed and benchmarked template-based protein–protein docking approaches in collaboration with the Vakser Lab (KU), contributing to best-practice guidelines for structural modeling of protein complexes
+- Completed dissertation: *Multiscale analyses of cellular signaling and regulation in response to multiple stress conditions*
 
 ### Undergraduate Research
 **University of Missouri** | Summer 2014  
-*Advisor: Xiaoqin Zou*
+*Advisor: Xiaoqin Zou, PhD*
 
-- Developed computational methods for protein kinase inhibitor selectivity studies
-- Applied molecular docking to multi-target drug design
+- Developed multi-target molecular docking methods for protein kinase inhibitor selectivity studies, presented at the University of Missouri Summer Undergraduate Research Symposium
 
-**Drury University** | 2013-2015  
-*Advisor: Christos Deligkaris*
+**Drury University** | 2013–2015  
+*Advisor: Christos Deligkaris, PhD*
 
-- Implemented entropic corrections for DNA-small molecule docking in AutoDock
+- Derived and implemented a vibrational entropy correction term for DNA–small molecule docking in AutoDock, improving binding free energy predictions; published as first author in *Computational Biology and Chemistry* (2018)
 
 ---
 
@@ -71,7 +82,7 @@ Drury University, Springfield, MO
 - Dimensionality reduction: PCA, MDS, UMAP, t-SNE
 - Classification algorithms, clustering methods (hierarchical, k-means, graph-based)
 - Deep learning: CNNs, Deep Neural Networks, autoencoders (TensorFlow, PyTorch)
-- Statistical inference: regression, hypothesis testing, empirical bayesian shrinkage
+- Statistical inference: regression, hypothesis testing, shrinkage methods.
 - Frequentist, Bayesian, and hybrid methodologies. 
 
 **Mathematical Modeling**
@@ -92,8 +103,8 @@ Drury University, Springfield, MO
 - **Bioinformatics**: Bioconductor, Seurat, Scanpy, STAR, kallisto
 - **Image Analysis**: FIJI/ImageJ, Pillow, OpenCV
 - **Version Control**: git, GitHub, BitBucket
-- **Containerization**: Docker, Singularity
-- **HPCs**: SLURM, PBS job schedulers; experience with university clusters
+- **Containerization**: Docker, Singularity/Apptainer
+- **HPCs**: SLURM, PBS job schedulers; experience with high performance computing clusters
 
 **Data & Markup**
 - LaTeX, Markdown, YAML, XML, SBML, HTML/CSS, Parquet, JSON
@@ -156,15 +167,19 @@ See [Publications page]({{ site.url }}/publications) for complete list with abst
 
 ### Selected Publications
 
-- Boggy GJ, **McElfresh GW**, et al. (2022). BFF and cellhashR: analysis tools for accurate demultiplexing of cell hashing data. *Bioinformatics*, 38(10), 2791-2801.
+- Mahyari E, Boggy GJ, **McElfresh GW**, et al. (2025). Enhanced interpretation of immune cell phenotype and function through a rhesus macaque single-cell atlas. *Cell Genomics*, 5(5).
 
-- Wang H, **McElfresh GW**<sup>*</sup>, et al. (2023). Signatures of antibiotic tolerance and persistence in response to divergent stresses. *bioRxiv*.
+- Bimber BN, Sunshine J, **McElfresh GW**, et al. (2025). Viral escape mutations do not account for non-protection from SIVmac239 challenge in RhCMV/SIV vaccinated rhesus macaques. *Frontiers in Immunology*, 15: 1444621.
 
-- Chakravarty D, **McElfresh GW**, et al. (2020). How to choose templates for modeling of protein complexes. *Proteins*, 88(9), 1070-1081.
+- Boggy GJ, **McElfresh GW**, et al. (2022). BFF and cellhashR: analysis tools for accurate demultiplexing of cell hashing data. *Bioinformatics*, 38(10), 2791–2801.
 
-- **McElfresh GW**<sup>*</sup>, Deligkaris C. (2018). A vibrational entropy term for DNA docking with AutoDock. *Computational Biology and Chemistry*, 73, 9-14.
+- Wang H, **McElfresh GW**†, et al. (2023). Signatures of antibiotic tolerance and persistence in response to divergent stresses. *bioRxiv* 2023.02.05.527212.
 
-<sup>*</sup> Co-first author
+- Chakravarty D, **McElfresh GW**, et al. (2020). How to choose templates for modeling of protein complexes. *Proteins*, 88(9), 1070–1081.
+
+- **McElfresh GW**†, Deligkaris C. (2018). A vibrational entropy term for DNA docking with AutoDock. *Computational Biology and Chemistry*, 73, 9–14.
+
+† Co-first / first author
 
 ---
 
@@ -190,21 +205,16 @@ See [Publications page]({{ site.url }}/publications) for complete list with abst
 
 ## Awards & Honors
 
-<!-- Add your awards here, e.g.:
-- Graduate Research Award (University of Kansas, 2019)
-- Outstanding Physics Student Researcher (Drury University 2015)
-- Dean's List, Drury University (2011-2013)
--->
-
----
-
-
+- Graduate Research Award, University of Kansas (2019)
+- Outstanding Physics Student Researcher, Drury University (2015)
 
 ---
 
 ## Service & Outreach
 
-- Journal Reviewer for Nature Communications
+- Peer reviewer: *Nature Communications*
+- Open-source software author: [cellhashR](https://github.com/BimberLab/cellhashR) and [tcrClustR](https://github.com/GWMcElfresh/tcrClustR) (GitHub)
+
 ---
 
 ## References

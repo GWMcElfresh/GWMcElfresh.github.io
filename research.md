@@ -43,7 +43,7 @@ Using transcriptomic profiling and mathematical modeling, I investigate how *E. 
 - **Data integration**: Combining spatial and single-cell modalities for comprehensive tissue analysis
 - **Pipeline development**: End-to-end workflows from raw reads to biological interpretation
 
-**Tools Developed**: Contributor to [BFF and cellhashR](https://doi.org/10.1093/bioinformatics/btac213) for accurate cell hashing demultiplexing
+**Tools Developed**: Author of [cellhashR](https://github.com/BimberLab/cellhashR) for accurate cell hashing demultiplexing and [tcrClustR](https://github.com/GWMcElfresh/tcrClustR) for TCR repertoire clustering (both GitHub)
 
 ### 2. Mathematical & Computational Modeling
 
