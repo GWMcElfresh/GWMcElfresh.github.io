@@ -34,6 +34,20 @@ Desktop.ini
 # Logs
 *.log
 
+# LaTeX build artifacts (keep .tex sources and .pdf outputs)
+*.aux
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.nav
+*.snm
+
 # Temporary files
 *.tmp
 *.bak
@@ -46,3 +60,39 @@ Desktop.ini
 # Personal notes (optional - remove if you want to track these)
 notes/
 drafts/
+
+# Mycelium living-repo + Cursor local scaffolding
+# Runtime memory, hooks, session state, and generated agent entrypoints.
+# Keep site content (pages, posts, assets) tracked; do not ignore those here.
+.cursor/
+.living/
+skillpacks/
+todo/
+AGENTS.md
+CLAUDE.md
+ENVIRONMENTS_INSTALLATIONS.md
+
+# Mycelium analysis-layout scaffold (init stubs only).
+# algorithms/, data/, reference_material/ currently hold only mycelium manifests/templates.
+# analysis/ also has real site reports/Rmds — ignore mycelium stubs there, not the folder.
+algorithms/
+data/
+reference_material/
+analysis/ANALYSIS_MANIFEST.md
+analysis/_README_TEMPLATE.md
+**/ANALYSIS_MANIFEST.md
+**/DATA_MANIFEST.md
+**/ALGORITHM_MANIFEST.md
+**/REFERENCE_MANIFEST.md
+
+# LLM / agent scaffolding & audit artifacts (not site content)
+# Keep real pages (_posts drafts, research.md, etc.) tracked; ignore generated audits only.
+SCAFFOLDING_SUMMARY.md
+SETUP_GUIDE.md
+analysis/repo-scan-report.md
+analysis/proposed-topics.md
+analysis/rmd-conversion-recommendations.md
+analysis/generate-drafts-report.md
+analysis/audit-posts-report.md
+.github/agents/
+.github/copilot-instructions.md

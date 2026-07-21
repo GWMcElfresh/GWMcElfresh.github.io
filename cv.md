@@ -43,7 +43,7 @@ Drury University, Springfield, MO
 
 - Co-developed the **Rhesus Immune Reference Atlas (RIRA)** — the first immune-focused, multi-tissue single-cell atlas for rhesus macaques — integrating data across >15 tissues and providing a community-standard reference for reconciling transcriptional profiles with established immune lineages (published *Cell Genomics*, 2025)
 - Designed and deployed end-to-end single-cell RNA-seq pipelines for studies of HIV/SIV, Tuberculosis, and Yellow Fever, enabling discovery of correlates of protection in NHP vaccine models
-- Authored and maintain open-source R packages on GitHub: **[cellhashR](https://github.com/BimberLab/cellhashR)** (scRNA-seq cell-hashing demultiplexing, widely adopted across the single-cell community) and **[tcrClustR](https://github.com/GWMcElfresh/tcrClustR)** (TCR repertoire clustering and analysis)
+- Co-authored and maintain open-source R packages on GitHub: **[cellhashR](https://github.com/BimberLab/cellhashR)** (scRNA-seq cell-hashing demultiplexing, widely adopted across the single-cell community) and **[tcrClustR](https://github.com/GWMcElfresh/tcrClustR)** (TCR repertoire clustering and analysis)
 - Developed a supplemental alignment pipeline capturing allele-specific MHC-I regulation and other immune signals systematically missed by dominant scRNA-seq workflows
 - Collaborated with experimental immunologists and virologists across multiple labs to translate high-dimensional data into biological hypotheses and manuscript-ready analyses
 
@@ -167,17 +167,19 @@ See [Publications page]({{ site.url }}/publications) for complete list with abst
 
 ### Selected Publications
 
-- Mahyari E, Boggy GJ, **McElfresh GW**, et al. (2025). Enhanced interpretation of immune cell phenotype and function through a rhesus macaque single-cell atlas. *Cell Genomics*, 5(5).
+- Benjamin S, **McElfresh GW**, et al. (2025). An immune-focused supplemental alignment pipeline captures information missed from dominant single-cell RNA-seq analyses, including allele-specific MHC-I regulation. *Frontiers in Immunology*, 16: 1596760. [doi:10.3389/fimmu.2025.1596760](https://doi.org/10.3389/fimmu.2025.1596760)
 
-- Bimber BN, Sunshine J, **McElfresh GW**, et al. (2025). Viral escape mutations do not account for non-protection from SIVmac239 challenge in RhCMV/SIV vaccinated rhesus macaques. *Frontiers in Immunology*, 15: 1444621.
+- Mahyari E, Boggy GJ, **McElfresh GW**, et al. (2025). Enhanced interpretation of immune cell phenotype and function through a rhesus macaque single-cell atlas. *Cell Genomics*, 5(5): 100849. [doi:10.1016/j.xgen.2025.100849](https://doi.org/10.1016/j.xgen.2025.100849)
 
-- Boggy GJ, **McElfresh GW**, et al. (2022). BFF and cellhashR: analysis tools for accurate demultiplexing of cell hashing data. *Bioinformatics*, 38(10), 2791–2801.
+- Bimber BN, Sunshine J, **McElfresh GW**, et al. (2025). Viral escape mutations do not account for non-protection from SIVmac239 challenge in RhCMV/SIV vaccinated rhesus macaques. *Frontiers in Immunology*, 15: 1444621. [doi:10.3389/fimmu.2024.1444621](https://doi.org/10.3389/fimmu.2024.1444621)
 
-- Wang H, **McElfresh GW**†, et al. (2023). Signatures of antibiotic tolerance and persistence in response to divergent stresses. *bioRxiv* 2023.02.05.527212.
+- Boggy GJ, **McElfresh GW**, et al. (2022). BFF and cellhashR: analysis tools for accurate demultiplexing of cell hashing data. *Bioinformatics*, 38(10), 2791–2801. [doi:10.1093/bioinformatics/btac213](https://doi.org/10.1093/bioinformatics/btac213)
 
-- Chakravarty D, **McElfresh GW**, et al. (2020). How to choose templates for modeling of protein complexes. *Proteins*, 88(9), 1070–1081.
+- Wang H, **McElfresh GW**†, et al. (2023). Signatures of antibiotic tolerance and persistence in response to divergent stresses. *bioRxiv* 2023.02.05.527212. [doi:10.1101/2023.02.05.527212](https://doi.org/10.1101/2023.02.05.527212)
 
-- **McElfresh GW**†, Deligkaris C. (2018). A vibrational entropy term for DNA docking with AutoDock. *Computational Biology and Chemistry*, 73, 9–14.
+- Chakravarty D, **McElfresh GW**, et al. (2020). How to choose templates for modeling of protein complexes. *Proteins*, 88(9), 1070–1081. [doi:10.1002/prot.25875](https://doi.org/10.1002/prot.25875)
+
+- **McElfresh GW**†, Deligkaris C. (2018). A vibrational entropy term for DNA docking with AutoDock. *Computational Biology and Chemistry*, 73, 9–14. [doi:10.1016/j.compbiolchem.2018.03.027](https://doi.org/10.1016/j.compbiolchem.2018.03.027)
 
 † Co-first / first author
 
@@ -223,4 +225,4 @@ Available upon request
 
 ---
 
-*Last Updated: February 2026*
+*Last Updated: July 2026*

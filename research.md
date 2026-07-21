@@ -43,7 +43,7 @@ Using transcriptomic profiling and mathematical modeling, I investigate how *E. 
 - **Data integration**: Combining spatial and single-cell modalities for comprehensive tissue analysis
 - **Pipeline development**: End-to-end workflows from raw reads to biological interpretation
 
-**Tools Developed**: Author of [cellhashR](https://github.com/BimberLab/cellhashR) for accurate cell hashing demultiplexing and [tcrClustR](https://github.com/GWMcElfresh/tcrClustR) for TCR repertoire clustering (both GitHub)
+**Tools Developed**: Author of [cellhashR](https://github.com/BimberLab/cellhashR) for accurate cell hashing demultiplexing and [tcrClustR](https://github.com/GWMcElfresh/tcrClustR) for TCR repertoire clustering (both GitHub). Co-developer of [nimble](https://doi.org/10.3389/fimmu.2025.1596760), which supplements standard scRNA-seq alignment with custom gene spaces so polymorphic immune loci (MHC, KIR) and viral RNA are not systematically lost to a one-size-fits-all reference.
 
 ### 2. Mathematical & Computational Modeling
 
