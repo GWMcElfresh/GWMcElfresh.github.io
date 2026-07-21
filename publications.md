@@ -12,32 +12,67 @@ permalink: /publications/
 
 ## Peer-Reviewed Articles
 
+### 2026
+
+**Kim SJ, Kain D, Lewinsohn DA, Swarbrick GM, Cansler ME, Bimber BN, McElfresh GW, et al.**  
+Antigenic stimulation in conjunction with cytokine is required for mediating IL-17A production in human MAIT cells.  
+*bioRxiv*, 2026.  
+[https://doi.org/10.64898/2026.01.27.702041](https://doi.org/10.64898/2026.01.27.702041)
+
+*Human MAIT cells express RORγt and IL-23R yet typically produce IFN-γ rather than IL-17A; prolonged TCR plus IL-23 conditioning is required for stable IL-17A production in lung MAIT clones.*
+
+**Kaza M, Varco-Merth B, McElfresh GW, Benjamin S, Boggy GJ, et al.**  
+Distinct phases of immune system programming during ART-suppressed immunodeficiency virus infection.  
+*bioRxiv*, 2026.  
+[https://doi.org/10.64898/2026.04.29.721702](https://doi.org/10.64898/2026.04.29.721702)
+
+*Longitudinal scRNA-seq and plasma proteomics in ART-treated SIV macaques reveal biphasic immune remodeling: an acute interferon signature that resolves with viral control, then late TGF-β/NF-κB programs and bone-marrow inflammatory monocytes after prolonged suppression.*
+
+---
+
 ### 2025
 
-**Benjamin S, McElfresh GW, Kaza M, Boggy GJ, Varco-Merth B, et al.**
-An immune-focused supplemental alignment pipeline captures information missed from dominant single-cell RNA-seq analyses, including allele-specific MHC-I regulation
+**Benjamin S, McElfresh GW, Kaza M, Boggy GJ, Varco-Merth B, et al.**  
+An immune-focused supplemental alignment pipeline captures information missed from dominant single-cell RNA-seq analyses, including allele-specific MHC-I regulation.  
+*Frontiers in Immunology*, 2025; 16: 1596760.  
+[https://doi.org/10.3389/fimmu.2025.1596760](https://doi.org/10.3389/fimmu.2025.1596760)
+
+*Standard scRNA-seq references systematically under-recover polymorphic immune loci; nimble supplements alignment with custom gene spaces and recovers allele-specific MHC-I regulation after Mtb stimulation.*
 
 **Mahyari E, Boggy GJ, McElfresh GW, Kaza M, Benjamin S, Varco-Merth B, et al.**  
 Enhanced interpretation of immune cell phenotype and function through a rhesus macaque single-cell atlas.  
-*Cell Genomics*, 2025; 5(5).  
+*Cell Genomics*, 2025; 5(5): 100849.  
+[https://doi.org/10.1016/j.xgen.2025.100849](https://doi.org/10.1016/j.xgen.2025.100849)
 
 *Comprehensive single-cell atlas of rhesus macaque immune cells enabling improved interpretation of cell phenotypes and functional states across immunological sites.*
 
-**Kain D, Awad W, McElfresh GW, Cansler M, Swarbrick GM, Poa KCY, et al.**  
-Human Neonatal MR1T Cells Have Diverse TCR Usage, are Less Cytotoxic and are Unable to Respond to Many Common Childhood Pathogens.  
-*bioRxiv*, 2025.
+**Rust LN, Ricciardi MJ, Lutz SS, Yusova S, Louw JJ, et al. (incl. McElfresh GW)**  
+Prophylactic and therapeutic neutralizing monoclonal antibody treatment prevents lethal yellow fever infection.  
+*JCI Insight*, 2025; 10(16): e191665.  
+[https://doi.org/10.1172/jci.insight.191665](https://doi.org/10.1172/jci.insight.191665)
 
-*Characterization of neonatal MR1T cell function and T-cell receptor diversity, revealing developmental differences in immune responses to common pathogens.*
-
---- 
-
-### 2024
+*A single lower-dose (10 mg/kg) prophylactic or therapeutic YFV nmAb protects rhesus macaques from lethal challenge and is associated with broad reduction of inflammatory cytokines.*
 
 **Bimber BN, Sunshine J, McElfresh GW, Reed JS, Pathak R, Bateman KB, et al.**  
 Viral escape mutations do not account for non-protection from SIVmac239 challenge in RhCMV/SIV vaccinated rhesus macaques.  
 *Frontiers in Immunology*, 2025; 15: 1444621.  
+[https://doi.org/10.3389/fimmu.2024.1444621](https://doi.org/10.3389/fimmu.2024.1444621)
 
 *Investigation of viral escape mechanisms in rhesus macaque vaccination models, ruling out viral escape as a feasible vaccine evasion mechanism.*
+
+**Kain D, Awad W, McElfresh GW, Cansler M, Swarbrick GM, Poa KCY, et al.**  
+Human Neonatal MR1T Cells Have Diverse TCR Usage, are Less Cytotoxic and are Unable to Respond to Many Common Childhood Pathogens.  
+*bioRxiv*, 2025.  
+[https://doi.org/10.1101/2025.03.17.643805](https://doi.org/10.1101/2025.03.17.643805)
+
+*Cord-blood MR1T cells show broader TCR usage and reduced cytotoxic programs relative to adult cells, and cloned neonatal receptors fail to recognize several common childhood pathogens.*
+
+**Kain D, McElfresh GW, Boggy G, Swarbrick GM, Rott K, et al.**  
+BCG Vaccination at Birth Shapes the TCR Usage and Functional Profile of MR1T Cells at 9 Weeks of Age.  
+*bioRxiv*, 2025.  
+[https://doi.org/10.1101/2025.10.09.681353](https://doi.org/10.1101/2025.10.09.681353)
+
+*Comparing birth versus delayed BCG, a TCR cluster enriched in vaccinated infants expresses elevated proinflammatory and cytotoxic genes, suggesting MR1T cells may retain vaccination-linked recall features.*
 
 ---
 
@@ -108,12 +143,6 @@ In: *The Interplay of Thermodynamics and Computation in Natural and Artificial S
 
 ---
 
-## Preprints & Works in Progress
-
-Check back for updates on ongoing projects in spatial transcriptomics and infectious disease modeling.
-
----
-
 ## Selected Presentations
 
 ### Conference Talks & Posters
@@ -165,7 +194,7 @@ McElfresh GW, Huang SY, Zou X
 If you'd like to cite my work, here's the recommended format:
 
 ```
-McElfresh, G.W. (2024). [Title]. Available at: https://gwmcelfresh.github.io
+McElfresh, G.W. (2026). [Title]. Available at: https://gwmcelfresh.github.io
 ```
 
 For specific publications, please use the citations provided above.

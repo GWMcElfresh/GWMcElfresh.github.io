@@ -52,3 +52,15 @@ exclude:
   - Gemfile.lock
   - README.md
   - vendor/
+  - .living/
+  - todo/
+  - skillpacks/
+  - algorithms/
+  - analysis/
+  - data/
+  - reference_material/
+  - AGENTS.md
+  - CLAUDE.md
+  - ENVIRONMENTS_INSTALLATIONS.md
+  - SCAFFOLDING_SUMMARY.md
+  - SETUP_GUIDE.md
