@@ -1,0 +1,90 @@
+/* GW site tokens mapped onto marimo's semantic CSS variables.
+   Used via App(css_file=...) and reinforced by scripts/inject_slides_theme.py. */
+
+:root,
+.dark,
+.dark-theme,
+.marimo {
+  color-scheme: dark;
+
+  --ink: #0a0e12;
+  --ink-elevated: #121820;
+  --ink-muted: #1a222d;
+  --text: #e6ebe8;
+  --text-muted: #9aa8a0;
+  --text-faint: #6b7a72;
+  --accent: #3dcfb6;
+  --accent-dim: #2a9a88;
+  --accent-glow: rgba(61, 207, 182, 0.18);
+  --border-site: rgba(230, 235, 232, 0.08);
+
+  --marimo-text-font: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --marimo-heading-font: "Fraunces", "Source Serif 4", Georgia, serif;
+  --marimo-monospace-font: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Override marimo light-dark() defaults toward site ink field */
+  --background: var(--ink) !important;
+  --foreground: var(--text) !important;
+  --card: var(--ink-elevated) !important;
+  --card-foreground: var(--text) !important;
+  --muted: var(--ink-muted) !important;
+  --muted-foreground: var(--text-muted) !important;
+  --popover: var(--ink-elevated) !important;
+  --popover-foreground: var(--text) !important;
+  --border: var(--border-site) !important;
+  --primary: var(--accent) !important;
+  --primary-foreground: var(--ink) !important;
+  --accent-foreground: var(--ink) !important;
+  --secondary: var(--ink-muted) !important;
+  --secondary-foreground: var(--text) !important;
+  --cm-background: var(--ink-elevated) !important;
+}
+
+html,
+body,
+#root,
+.marimo {
+  background: var(--ink) !important;
+  color: var(--text) !important;
+  font-family: var(--marimo-text-font) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--marimo-heading-font) !important;
+  color: var(--text) !important;
+  font-weight: 500;
+}
+
+.paragraph,
+.markdown,
+.prose,
+.prose * {
+  color: var(--text) !important;
+}
+
+a {
+  color: var(--accent) !important;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+
+/* Kill residual light surfaces from marimo chrome */
+.bg-background,
+.bg-primary,
+.bg-secondary,
+.bg-card,
+.bg-muted,
+[class*="bg-background"],
+[class*="bg-card"] {
+  background-color: var(--ink) !important;
+  color: var(--text) !important;
+}

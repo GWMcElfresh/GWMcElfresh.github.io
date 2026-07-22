@@ -1,65 +1,50 @@
-# Jekyll build artifacts
+# Dependencies & build
+node_modules/
+dist/
+.astro/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Env
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# Jekyll leftover
 _site/
 .sass-cache/
 .jekyll-cache/
-.jekyll-metadata
+.jekyll-metadata/
+vendor/bundle/
 
-# Ruby/Bundler
-vendor/
-.bundle/
-Gemfile.lock
-
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# Editors
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.project
-
-# Environment
-.env
-.env.local
-
-# Logs
-*.log
-
-# LaTeX build artifacts (keep .tex sources and .pdf outputs)
+# LaTeX aux
 *.aux
+*.log
 *.out
+*.toc
 *.fls
 *.fdb_latexmk
 *.synctex.gz
-*.toc
-*.lof
-*.lot
-*.bbl
-*.blg
-*.nav
-*.snm
 
-# Temporary files
-*.tmp
-*.bak
-
-# R Markdown
-*.knit.md
-*_cache/
-*_files/
-
-# Personal notes (optional - remove if you want to track these)
-notes/
-drafts/
+# Large / local
+*.h5ad
+*.rds
+*.RData
 
 # Mycelium living-repo + Cursor local scaffolding
 # Runtime memory, hooks, session state, and generated agent entrypoints.
@@ -74,7 +59,7 @@ ENVIRONMENTS_INSTALLATIONS.md
 
 # Mycelium analysis-layout scaffold (init stubs only).
 # algorithms/, data/, reference_material/ currently hold only mycelium manifests/templates.
-# analysis/ also has real site reports/Rmds — ignore mycelium stubs there, not the folder.
+# analysis/ also has real site notebooks/reports — ignore mycelium stubs there, not the folder.
 algorithms/
 data/
 reference_material/
@@ -86,7 +71,6 @@ analysis/_README_TEMPLATE.md
 **/REFERENCE_MANIFEST.md
 
 # LLM / agent scaffolding & audit artifacts (not site content)
-# Keep real pages (_posts drafts, research.md, etc.) tracked; ignore generated audits only.
 SCAFFOLDING_SUMMARY.md
 SETUP_GUIDE.md
 analysis/repo-scan-report.md
@@ -96,3 +80,6 @@ analysis/generate-drafts-report.md
 analysis/audit-posts-report.md
 .github/agents/
 .github/copilot-instructions.md
+
+# Marimo local session cache (regenerated; not site content)
+**/__marimo__/

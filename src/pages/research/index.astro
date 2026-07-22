@@ -1,0 +1,144 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+
+const projects = (await getCollection('research')).sort(
+  (a, b) => (a.data.order ?? 100) - (b.data.order ?? 100),
+);
+---
+
+<BaseLayout
+  title="Research"
+  description="I combine stochastic models with single-cell and spatial transcriptomics to make transfers across molecular, cellular, and tissue scales more explicit in infectious disease."
+>
+  <div class="page-wrap fade-trail">
+    <header class="prose">
+      <h1>Research</h1>
+      <p>
+        Host–pathogen outcomes depend on relationships that are hard to measure in one place:
+        molecular fluctuations within cells, rare cellular states in a population, and spatial
+        organization in tissue. Each scale is accessible experimentally, but the transfer among
+        them is usually inferred rather than observed. I combine stochastic models with single-cell
+        and spatial transcriptomics to make those transfers more explicit in infectious disease.
+      </p>
+    </header>
+
+    <section>
+      <h2 class="section-label">Projects</h2>
+      <ul class="project-list">
+        {
+          projects.map((p) => (
+            <li>
+              <a href={`/research/${p.id}/`}>{p.data.title}</a>
+              {p.data.excerpt && <p class="excerpt">{p.data.excerpt}</p>}
+              {p.data.status && <p class="meta">{p.data.status}</p>}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="prose research-overview">
+      <h2>Current focus</h2>
+      <h3>Spatial and single-cell transcriptomics in infectious disease</h3>
+      <p>
+        Tissue pathology and cellular molecular states describe related aspects of infection, but
+        they are usually measured on different platforms and at different resolutions. Spatial
+        transcriptomics preserves location; single-cell RNA-seq resolves cell identity and state.
+        Integrating the two is critical when the biological question is how local cellular programs
+        assemble into tissue phenotypes. I develop frameworks that combine NanoString GeoMx and
+        CosMx with single-cell RNA-seq in rhesus macaque models of SIV and
+        <em>Mycobacterium tuberculosis</em> infection, using deconvolution and spatial statistics
+        to connect pathology to mechanism within the limits of each assay.
+      </p>
+      <p class="meta">
+        10X Genomics · GeoMx/CosMx · deconvolution · spatial statistics
+      </p>
+
+      <h3>Bacterial stress response and antibiotic tolerance</h3>
+      <p>
+        Bacteria respond to divergent stresses through overlapping transcriptional programs, yet the
+        path from a population-level stimulant to rare antibiotic-tolerant states remains difficult
+        to predict. Using transcriptomic profiling and stochastic modeling, I studied how
+        <em>E. coli</em> enters persister states under stress, with attention to shared stimulons
+        and the rare-state dynamics that link molecular fluctuations to population-level tolerance.
+        This work includes co-first authorship with Wang et al. (2023, 2021) and modeling with
+        Gillespie simulations and agent-based approaches.
+      </p>
+      <p class="meta">Wang et al. (2023, 2021) — co-first author · Gillespie / ABM · time series</p>
+
+      <h2>Approaches</h2>
+      <p>
+        The methods below are the practical inventory I use to move between molecular models,
+        single-cell measurements, and tissue-scale organization. Tool development appears when
+        existing pipelines cannot resolve the relationship under study (e.g., hashing, TCR
+        clustering, or immune/viral gene spaces via RIRA-related work).
+      </p>
+      <h3>Transcriptomics &amp; spatial biology</h3>
+      <ul>
+        <li>Single-cell RNA-seq (10X), cell hashing, demultiplexing</li>
+        <li>Spatial platforms: GeoMx DSP and CosMx</li>
+        <li>
+          Tools: <a href="https://github.com/BimberLab/cellhashR">cellhashR</a>,
+          <a href="https://github.com/GWMcElfresh/tcrClustR">tcrClustR</a>,
+          <a href="https://doi.org/10.3389/fimmu.2025.1596760">nimble</a> (immune/viral gene spaces)
+        </li>
+      </ul>
+
+      <h3>Mathematical &amp; computational modeling</h3>
+      <ul>
+        <li>Stochastic biochemical models (Gillespie, CME)</li>
+        <li>Agent-based models of cellular populations</li>
+        <li>Multiscale links from molecule → cell → tissue</li>
+      </ul>
+
+      <h3>Structural biology (earlier work)</h3>
+      <ul>
+        <li>
+          Template-based protein docking (<a href="https://doi.org/10.1002/prot.25875">Chakravarty et al., 2020</a>)
+        </li>
+        <li>
+          DNA–ligand vibrational entropy in AutoDock (<a href="https://doi.org/10.1016/j.compbiolchem.2018.03.027">McElfresh &amp; Deligkaris, 2018</a>)
+        </li>
+      </ul>
+
+      <h2>Philosophy</h2>
+      <p>
+        Disease phenotypes emerge from coupling across scales: molecular mechanisms within cells,
+        heterogeneous states in a population, and spatial organization in tissue. Treating any one
+        of these as a complete summary of the others obscures the transfer that often determines
+        outcome. I therefore organize work around that transfer — asking what a measurement or
+        model can distinguish, and what it necessarily leaves unresolved.
+      </p>
+      <p>
+        Method development follows from that constraint. Pipelines should be reproducible and
+        robust enough to support a biological comparison; they should not invent complexity that
+        the question does not require. Computation is useful to the extent that it clarifies a
+        disease mechanism or makes an experimental contrast interpretable. Much of this depends on
+        collaboration with experimental immunology, which supplies the systems and controls that
+        keep models accountable to biology.
+      </p>
+
+      <p>
+        If a shared question depends on linking these scales, <a href={`mailto:${site.email}`}>reach out</a>.
+      </p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 2.5rem 0 0;
+  }
+
+  .research-overview {
+    margin-top: 3rem;
+  }
+</style>
