@@ -1,0 +1,31 @@
+:root {
+  /* Atmosphere — near-black ink */
+  --ink: #0a0e12;
+  --ink-elevated: #121820;
+  --ink-muted: #1a222d;
+
+  /* Text */
+  --text: #e6ebe8;
+  --text-muted: #9aa8a0;
+  --text-faint: #6b7a72;
+
+  /* Accent — cool teal-cyan (pathogen/immune niche cue) */
+  --accent: #3dcfb6;
+  --accent-dim: #2a9a88;
+  --accent-glow: rgba(61, 207, 182, 0.18);
+
+  /* Semantic */
+  --border: rgba(230, 235, 232, 0.08);
+  --selection: rgba(61, 207, 182, 0.28);
+
+  /* Typography */
+  --font-display: 'Fraunces', 'Source Serif 4', Georgia, serif;
+  --font-body: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', monospace;
+
+  --measure: 42rem;
+  --page-max: 68rem;
+  --header-h: 3.75rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}

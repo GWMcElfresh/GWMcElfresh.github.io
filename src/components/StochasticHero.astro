@@ -1,0 +1,330 @@
+---
+/**
+ * Full-bleed stochastic process hero.
+ * Client island: Gillespie-like state-switching particles with trail fade.
+ */
+import { site } from '../data/site';
+---
+
+<section class="stochastic-hero" aria-label="Introduction">
+  <canvas class="stochastic-hero__canvas" data-stochastic-canvas aria-hidden="true"></canvas>
+  <div class="stochastic-hero__veil" aria-hidden="true"></div>
+  <div class="stochastic-hero__content">
+    <p class="stochastic-hero__brand">{site.title}</p>
+    <h1 class="stochastic-hero__headline">{site.headline}</h1>
+    <p class="stochastic-hero__support">
+      Infection outcomes depend on stochastic processes that population averages obscure. I recover
+      those dynamics from single-cell and spatial transcriptomes in SIV and tuberculosis.
+    </p>
+    <div class="btn-row">
+      <a class="btn" href="/research/">View research</a>
+      <a class="btn btn-ghost" href="/cv/">CV</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  type Agent = {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    state: 0 | 1; // 0 susceptible-like, 1 activated/infected-like
+    trail: { x: number; y: number }[];
+  };
+
+  function initStochasticCanvas(canvas: HTMLCanvasElement) {
+    const ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
+
+    const reduced =
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let agents: Agent[] = [];
+    let raf = 0;
+    let running = false;
+    let mouse = { x: -9999, y: -9999, active: false };
+
+    const COUNT = isMobile ? 48 : 90;
+    const TRAIL = isMobile ? 10 : 18;
+    const SWITCH_RATE = 0.004; // per-frame state flip probability (Gillespie-ish)
+    const ACCENT = { r: 61, g: 207, b: 182 };
+    const MUTED = { r: 107, g: 122, b: 114 };
+
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = rect.width;
+      height = rect.height;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function spawn(): Agent {
+      return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6,
+        state: Math.random() < 0.18 ? 1 : 0,
+        trail: [],
+      };
+    }
+
+    function seed() {
+      agents = Array.from({ length: COUNT }, spawn);
+    }
+
+    function step() {
+      for (const a of agents) {
+        // Brownian kick
+        a.vx += (Math.random() - 0.5) * 0.08;
+        a.vy += (Math.random() - 0.5) * 0.08;
+
+        // Soft mouse attract
+        if (mouse.active) {
+          const dx = mouse.x - a.x;
+          const dy = mouse.y - a.y;
+          const dist2 = dx * dx + dy * dy + 80;
+          a.vx += (dx / dist2) * 12;
+          a.vy += (dy / dist2) * 12;
+        }
+
+        // Damping + speed cap
+        a.vx *= 0.985;
+        a.vy *= 0.985;
+        const speed = Math.hypot(a.vx, a.vy);
+        if (speed > 1.8) {
+          a.vx = (a.vx / speed) * 1.8;
+          a.vy = (a.vy / speed) * 1.8;
+        }
+
+        a.x += a.vx;
+        a.y += a.vy;
+
+        // Wrap
+        if (a.x < 0) a.x += width;
+        if (a.x > width) a.x -= width;
+        if (a.y < 0) a.y += height;
+        if (a.y > height) a.y -= height;
+
+        // Stochastic state switch
+        if (Math.random() < SWITCH_RATE) {
+          a.state = a.state === 0 ? 1 : 0;
+        }
+
+        a.trail.push({ x: a.x, y: a.y });
+        if (a.trail.length > TRAIL) a.trail.shift();
+      }
+    }
+
+    function draw() {
+      // Trail fade via translucent clear
+      ctx!.fillStyle = 'rgba(10, 14, 18, 0.18)';
+      ctx!.fillRect(0, 0, width, height);
+
+      for (const a of agents) {
+        const c = a.state === 1 ? ACCENT : MUTED;
+        if (a.trail.length > 1) {
+          ctx!.beginPath();
+          ctx!.moveTo(a.trail[0].x, a.trail[0].y);
+          for (let i = 1; i < a.trail.length; i++) {
+            ctx!.lineTo(a.trail[i].x, a.trail[i].y);
+          }
+          ctx!.strokeStyle = `rgba(${c.r},${c.g},${c.b},${a.state === 1 ? 0.45 : 0.22})`;
+          ctx!.lineWidth = a.state === 1 ? 1.25 : 0.85;
+          ctx!.stroke();
+        }
+        ctx!.beginPath();
+        ctx!.arc(a.x, a.y, a.state === 1 ? 2.2 : 1.4, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(${c.r},${c.g},${c.b},${a.state === 1 ? 0.9 : 0.5})`;
+        ctx!.fill();
+      }
+    }
+
+    function drawStill() {
+      ctx!.fillStyle = '#0a0e12';
+      ctx!.fillRect(0, 0, width, height);
+      // Advance trails once then freeze
+      for (let i = 0; i < TRAIL; i++) step();
+      // Opaque redraw without fade
+      ctx!.fillStyle = '#0a0e12';
+      ctx!.fillRect(0, 0, width, height);
+      for (const a of agents) {
+        const c = a.state === 1 ? ACCENT : MUTED;
+        if (a.trail.length > 1) {
+          ctx!.beginPath();
+          ctx!.moveTo(a.trail[0].x, a.trail[0].y);
+          for (let i = 1; i < a.trail.length; i++) {
+            ctx!.lineTo(a.trail[i].x, a.trail[i].y);
+          }
+          ctx!.strokeStyle = `rgba(${c.r},${c.g},${c.b},${a.state === 1 ? 0.5 : 0.25})`;
+          ctx!.lineWidth = 1;
+          ctx!.stroke();
+        }
+        ctx!.beginPath();
+        ctx!.arc(a.x, a.y, 1.8, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(${c.r},${c.g},${c.b},0.75)`;
+        ctx!.fill();
+      }
+    }
+
+    function loop() {
+      if (!running) return;
+      step();
+      draw();
+      raf = requestAnimationFrame(loop);
+    }
+
+    function start() {
+      if (running || reduced) return;
+      running = true;
+      raf = requestAnimationFrame(loop);
+    }
+
+    function stop() {
+      running = false;
+      cancelAnimationFrame(raf);
+    }
+
+    resize();
+    seed();
+
+    if (reduced) {
+      drawStill();
+    } else {
+      ctx!.fillStyle = '#0a0e12';
+      ctx!.fillRect(0, 0, width, height);
+      start();
+    }
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (reduced) return;
+        if (entry.isIntersecting) start();
+        else stop();
+      },
+      { threshold: 0.05 },
+    );
+    io.observe(canvas);
+
+    const onResize = () => {
+      resize();
+      seed();
+      if (reduced) drawStill();
+    };
+    window.addEventListener('resize', onResize);
+
+    const onMove = (e: PointerEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      mouse.active = true;
+    };
+    const onLeave = () => {
+      mouse.active = false;
+    };
+    canvas.addEventListener('pointermove', onMove);
+    canvas.addEventListener('pointerleave', onLeave);
+
+    return () => {
+      stop();
+      io.disconnect();
+      window.removeEventListener('resize', onResize);
+      canvas.removeEventListener('pointermove', onMove);
+      canvas.removeEventListener('pointerleave', onLeave);
+    };
+  }
+
+  function boot() {
+    const canvas = document.querySelector<HTMLCanvasElement>(
+      '[data-stochastic-canvas]',
+    );
+    if (canvas) initStochasticCanvas(canvas);
+  }
+
+  boot();
+  document.addEventListener('astro:page-load', boot);
+</script>
+
+<style>
+  .stochastic-hero {
+    position: relative;
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100dvh - var(--header-h));
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--ink);
+  }
+
+  .stochastic-hero__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: crosshair;
+  }
+
+  .stochastic-hero__veil {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(10, 14, 18, 0.15) 0%,
+      rgba(10, 14, 18, 0.35) 45%,
+      rgba(10, 14, 18, 0.92) 100%
+    );
+    pointer-events: none;
+  }
+
+  .stochastic-hero__content {
+    position: relative;
+    z-index: 2;
+    width: min(100% - 2rem, var(--page-max));
+    margin-inline: auto;
+    padding: 0 0 clamp(2.5rem, 8vh, 5rem);
+    max-width: 40rem;
+    margin-left: max(1rem, calc((100% - var(--page-max)) / 2));
+  }
+
+  .stochastic-hero__brand {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 500;
+    margin: 0 0 0.75rem;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .stochastic-hero__headline {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 3vw, 1.85rem);
+    font-weight: 400;
+    margin: 0 0 0.85rem;
+    color: var(--accent);
+    line-height: 1.25;
+  }
+
+  .stochastic-hero__support {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    max-width: 34rem;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 640px) {
+    .stochastic-hero__content {
+      margin-left: 1rem;
+      margin-right: 1rem;
+      width: auto;
+    }
+  }
+</style>

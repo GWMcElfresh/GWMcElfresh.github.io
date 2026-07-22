@@ -1,0 +1,69 @@
+---
+import { site } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <p class="site-footer__name">{site.title}</p>
+    <p class="site-footer__loc meta">{site.location}</p>
+    <ul class="site-footer__links">
+      <li>
+        <a href={`https://github.com/${site.github}`} rel="me">GitHub</a>
+      </li>
+      <li>
+        <a href={`https://orcid.org/${site.orcid}`} rel="me">ORCID</a>
+      </li>
+      <li>
+        <a
+          href={`https://scholar.google.com/citations?user=${site.googleScholar}`}
+          rel="me">Scholar</a
+        >
+      </li>
+      <li>
+        <a href={`mailto:${site.email}`}>Email</a>
+      </li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0 2.5rem;
+    margin-top: auto;
+  }
+
+  .site-footer__inner {
+    width: min(100% - 2rem, var(--page-max));
+    margin-inline: auto;
+  }
+
+  .site-footer__name {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    margin: 0 0 0.25rem;
+  }
+
+  .site-footer__loc {
+    margin: 0 0 1rem;
+  }
+
+  .site-footer__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+  }
+
+  .site-footer__links a {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .site-footer__links a:hover {
+    color: var(--accent);
+  }
+</style>

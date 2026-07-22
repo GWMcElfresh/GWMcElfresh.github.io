@@ -1,0 +1,487 @@
+---
+title: "scRNA-seq Cluster Proportion Modeling and Simulation-Based Power"
+author: "GW McElfresh"
+date: "2026-04-26"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+---
+
+## Goals
+
+This notebook does four things:
+
+1. Simulates a small scRNA-seq-like dataset (3 subjects, 2 conditions each, 300 genes).
+2. Loads a real Cellxgene `.h5ad` file and converts metadata into subject-by-treatment-by-cluster proportional data.
+3. Fits Bayesian proportion models in R using `brms` with the `cmdstanr` backend.
+4. Uses the fitted distributional parameters as anchors for simulation-based power grids with two-sided Wilcoxon signed-rank tests.
+
+## 1) Data Source and Download
+
+Integrated cancer cell-specific single-cell RNA-seq datasets of immune checkpoint blockade-treated patients can be downloaded from Cellxgene:
+
+- https://datasets.cellxgene.cziscience.com/134d34af-cbcd-4837-9310-3d1f83ec6f18.h5ad
+
+You can download the file from a terminal:
+
+```bash
+mkdir -p data
+curl -L "https://datasets.cellxgene.cziscience.com/134d34af-cbcd-4837-9310-3d1f83ec6f18.h5ad" -o data/icb_integrated.h5ad
+```
+
+If needed, update the path in the Python chunk below.
+
+## 2) Setup
+
+```{r setup, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(readr)
+library(purrr)
+library(stringr)
+library(tibble)
+
+library(brms)
+library(cmdstanr)
+
+set.seed(20260426)
+options(mc.cores = max(1, parallel::detectCores() - 1))
+options(brms.backend = "cmdstanr")
+```
+
+Install once (if needed):
+
+```{r install-pkgs, eval=FALSE}
+install.packages(c("dplyr", "tidyr", "ggplot2", "readr", "purrr", "stringr", "tibble", "brms", "cmdstanr"))
+cmdstanr::install_cmdstan()
+```
+
+## 3) Simulate a Basic scRNA-seq-like Dataset
+
+This creates cell-level metadata and a 300-gene expression matrix for 3 subjects, each measured in 2 conditions.
+
+```{r simulate-scrna}
+subjects <- paste0("S", 1:3)
+conditions <- c("control", "treated")
+clusters <- paste0("C", 1:6)
+ngenes <- 300
+
+cells_per_subject_condition <- 800
+n_total <- length(subjects) * length(conditions) * cells_per_subject_condition
+
+meta_sim <- tidyr::expand_grid(
+  subject = subjects,
+  condition = conditions,
+  cell_index = seq_len(cells_per_subject_condition)
+) %>%
+  mutate(
+    # Mild treatment enrichment in C3/C4
+    cluster = purrr::map_chr(condition, function(cc) {
+      if (cc == "treated") {
+        sample(clusters, size = 1, prob = c(0.14, 0.14, 0.26, 0.22, 0.14, 0.10))
+      } else {
+        sample(clusters, size = 1, prob = c(0.20, 0.20, 0.18, 0.16, 0.16, 0.10))
+      }
+    })
+  )
+
+# Simulate a simple gene expression matrix with cluster-dependent means.
+# Rows: cells, Columns: genes.
+cluster_effect <- setNames(c(0.8, 0.9, 1.2, 1.1, 0.95, 0.85), clusters)
+expr_sim <- matrix(rpois(n_total * ngenes, lambda = 1), nrow = n_total, ncol = ngenes)
+for (k in seq_len(n_total)) {
+  lam <- cluster_effect[meta_sim$cluster[k]]
+  expr_sim[k, ] <- rpois(ngenes, lambda = lam)
+}
+colnames(expr_sim) <- paste0("G", seq_len(ngenes))
+
+head(meta_sim)
+summary(as.vector(expr_sim))
+```
+
+Convert simulated metadata to cluster proportions:
+
+```{r simulated-proportions}
+prop_sim <- meta_sim %>%
+  count(subject, condition, cluster, name = "n_cells") %>%
+  group_by(subject, condition) %>%
+  mutate(total_cells = sum(n_cells), prop = n_cells / total_cells) %>%
+  ungroup()
+
+prop_sim
+```
+
+## 4) Load Cellxgene .h5ad and Build Proportion Data (Python)
+
+This chunk reads the `.h5ad`, detects likely metadata columns for subject/treatment/cluster, and writes a CSV used by R.
+
+```{python build-proportions-python}
+import os
+import numpy as np
+import pandas as pd
+
+h5ad_path = "data/icb_integrated.h5ad"
+out_csv = "analysis/cellxgene_cluster_proportions.csv"
+
+if not os.path.exists(h5ad_path):
+    raise FileNotFoundError(
+        f"Could not find {h5ad_path}. Download the file first or update h5ad_path."
+    )
+
+import anndata as ad
+adata = ad.read_h5ad(h5ad_path)
+obs = adata.obs.copy()
+obs.columns = [str(c) for c in obs.columns]
+
+# Heuristic selection for key columns
+subject_candidates = [
+    "donor_id", "patient_id", "subject_id", "sample_id", "donor", "patient", "subject"
+]
+treatment_candidates = [
+    "treatment", "condition", "therapy", "response", "timepoint", "group"
+]
+cluster_candidates = [
+    "cell_type", "celltype", "cell_type_ontology_term_id", "cluster", "leiden", "annotation"
+]
+
+def pick_column(columns, candidates):
+    lower_map = {c.lower(): c for c in columns}
+    for cand in candidates:
+        if cand.lower() in lower_map:
+            return lower_map[cand.lower()]
+    return None
+
+subject_col = pick_column(obs.columns, subject_candidates)
+treatment_col = pick_column(obs.columns, treatment_candidates)
+cluster_col = pick_column(obs.columns, cluster_candidates)
+
+if subject_col is None or treatment_col is None or cluster_col is None:
+    print("Available obs columns:")
+    print(list(obs.columns))
+    raise ValueError(
+        "Could not auto-detect subject/treatment/cluster columns. "
+        "Edit candidates or set subject_col/treatment_col/cluster_col manually."
+    )
+
+print("Using columns:")
+print("subject:", subject_col)
+print("treatment:", treatment_col)
+print("cluster:", cluster_col)
+
+meta = obs[[subject_col, treatment_col, cluster_col]].copy()
+meta.columns = ["subject", "treatment", "cluster"]
+meta = meta.dropna(subset=["subject", "treatment", "cluster"])
+
+counts = (
+    meta
+    .groupby(["subject", "treatment", "cluster"], as_index=False)
+    .size()
+    .rename(columns={"size": "n_cells"})
+)
+
+totals = (
+    counts
+    .groupby(["subject", "treatment"], as_index=False)["n_cells"]
+    .sum()
+    .rename(columns={"n_cells": "total_cells"})
+)
+
+prop_df = counts.merge(totals, on=["subject", "treatment"], how="left")
+prop_df["prop"] = prop_df["n_cells"] / prop_df["total_cells"]
+
+os.makedirs("analysis", exist_ok=True)
+prop_df.to_csv(out_csv, index=False)
+print(f"Saved proportion dataframe: {out_csv}")
+print(prop_df.head())
+```
+
+## 5) Read Proportion Data in R and Prepare Modeling Table
+
+```{r read-proportion-csv}
+prop_real <- readr::read_csv("analysis/cellxgene_cluster_proportions.csv", show_col_types = FALSE)
+
+# Ensure factors and add a beta-safe transformed proportion in (0,1)
+prop_real <- prop_real %>%
+  mutate(
+    subject = as.factor(subject),
+    treatment = as.factor(treatment),
+    cluster = as.factor(cluster)
+  )
+
+n_eps <- 0.5
+prop_real <- prop_real %>%
+  mutate(prop_beta = (n_cells + n_eps) / (total_cells + 2 * n_eps))
+
+dplyr::glimpse(prop_real)
+```
+
+Optional quick metadata summaries:
+
+```{r summaries}
+by_subject <- prop_real %>% count(subject, name = "rows")
+by_treatment <- prop_real %>% count(treatment, name = "rows")
+by_cluster <- prop_real %>% count(cluster, name = "rows")
+
+by_subject
+by_treatment
+by_cluster
+```
+
+## 6) Bayesian Proportion Models with brms + cmdstanr
+
+### Model choice
+
+- If proportions include exact 0 or 1 frequently, use `zero_one_inflated_beta()`.
+- If not, standard `beta()` with continuity correction (`prop_beta`) is often stable.
+
+Below, we model one cluster at a time and estimate treatment effect plus subject-level variance.
+
+```{r fit-models, message=FALSE, warning=FALSE}
+# Keep clusters with enough observations to avoid unstable toy fits.
+candidate_clusters <- prop_real %>%
+  count(cluster, name = "n") %>%
+  filter(n >= 8) %>%
+  pull(cluster)
+
+# Priors are intentionally weakly informative for a basic workflow.
+priors_beta <- c(
+  set_prior("normal(0, 1)", class = "b"),
+  set_prior("normal(0, 1)", class = "Intercept"),
+  set_prior("student_t(3, 0, 1)", class = "sd"),
+  set_prior("gamma(2, 0.1)", class = "phi")
+)
+
+fit_one_cluster <- function(cl) {
+  dat <- prop_real %>% filter(cluster == cl)
+  if (nrow(dat) < 8) return(NULL)
+
+  brm(
+    formula = bf(prop_beta ~ treatment + (1 | subject)),
+    data = dat,
+    family = Beta(),
+    prior = priors_beta,
+    chains = 4,
+    iter = 2000,
+    warmup = 1000,
+    seed = 20260426,
+    refresh = 0
+  )
+}
+
+fits <- setNames(vector("list", length(candidate_clusters)), candidate_clusters)
+for (cl in candidate_clusters) {
+  cat("Fitting cluster", as.character(cl), "...\n")
+  fits[[as.character(cl)]] <- fit_one_cluster(cl)
+}
+
+# Keep successful fits only
+fits <- fits[!vapply(fits, is.null, logical(1))]
+length(fits)
+```
+
+Extract treatment effect and subject-level SD:
+
+```{r extract-params}
+extract_summary <- function(fit, cluster_name) {
+  fx <- posterior_summary(fit, pars = c("b_treatmenttreated", "sd_subject__Intercept", "phi"))
+  tibble(
+    cluster = cluster_name,
+    term = rownames(fx),
+    estimate = fx[, "Estimate"],
+    q2.5 = fx[, "Q2.5"],
+    q97.5 = fx[, "Q97.5"]
+  )
+}
+
+param_summaries <- purrr::imap_dfr(fits, ~extract_summary(.x, .y))
+param_summaries
+```
+
+## 7) Simulation-Based Power Grids (Two-Sided Wilcoxon)
+
+Idea:
+
+1. Pick a baseline mean proportion and variance scale.
+2. Simulate paired subject-level control/treated proportions from beta distributions with a subject random effect.
+3. Test treated vs control with two-sided paired Wilcoxon.
+4. Repeat many times in each grid bin to estimate power.
+
+```{r power-grid-functions}
+inv_logit <- function(x) 1 / (1 + exp(-x))
+
+simulate_one_cohort <- function(
+  n_subject,
+  mu_control,
+  mu_treated,
+  phi,
+  sd_subject,
+  seed = NULL
+) {
+  if (!is.null(seed)) set.seed(seed)
+
+  # Random intercept shared across both conditions for each subject
+  b_subj <- rnorm(n_subject, mean = 0, sd = sd_subject)
+
+  # Condition means on logit scale with subject shift
+  eta_c <- qlogis(mu_control) + b_subj
+  eta_t <- qlogis(mu_treated) + b_subj
+
+  mu_c <- pmin(pmax(inv_logit(eta_c), 1e-6), 1 - 1e-6)
+  mu_t <- pmin(pmax(inv_logit(eta_t), 1e-6), 1 - 1e-6)
+
+  a_c <- mu_c * phi
+  b_c <- (1 - mu_c) * phi
+  a_t <- mu_t * phi
+  b_t <- (1 - mu_t) * phi
+
+  y_c <- rbeta(n_subject, shape1 = a_c, shape2 = b_c)
+  y_t <- rbeta(n_subject, shape1 = a_t, shape2 = b_t)
+
+  list(control = y_c, treated = y_t)
+}
+
+power_in_bin <- function(
+  n_subject,
+  mu_control,
+  mean_shift,
+  phi,
+  sd_subject,
+  n_sims = 500,
+  alpha = 0.05
+) {
+  mu_treated <- pmin(pmax(mu_control + mean_shift, 0.001), 0.999)
+
+  pvals <- replicate(n_sims, {
+    dat <- simulate_one_cohort(
+      n_subject = n_subject,
+      mu_control = mu_control,
+      mu_treated = mu_treated,
+      phi = phi,
+      sd_subject = sd_subject
+    )
+
+    suppressWarnings(wilcox.test(dat$treated, dat$control, paired = TRUE, alternative = "two.sided")$p.value)
+  })
+
+  mean(pvals < alpha)
+}
+```
+
+Build a grid over cohort size, mean shift, and subject variance:
+
+```{r run-power-grid}
+# Anchor values. You can replace these with posterior means from a specific fitted cluster.
+mu0 <- 0.20
+phi0 <- 30
+
+grid <- tidyr::expand_grid(
+  n_subject = seq(10, 80, by = 10),
+  mean_shift = seq(0.00, 0.20, by = 0.02),
+  sd_subject = c(0.1, 0.3, 0.6, 0.9)
+)
+
+set.seed(20260426)
+power_grid <- grid %>%
+  mutate(
+    power = pmap_dbl(
+      list(n_subject, mean_shift, sd_subject),
+      ~ power_in_bin(
+        n_subject = ..1,
+        mu_control = mu0,
+        mean_shift = ..2,
+        phi = phi0,
+        sd_subject = ..3,
+        n_sims = 300
+      )
+    )
+  )
+
+power_grid
+```
+
+Visualize power landscapes:
+
+```{r plot-power-grid, fig.height=6, fig.width=10}
+ggplot(power_grid, aes(x = n_subject, y = mean_shift, fill = power)) +
+  geom_tile() +
+  facet_wrap(~ sd_subject, nrow = 1, labeller = label_both) +
+  scale_fill_viridis_c(limits = c(0, 1)) +
+  labs(
+    title = "Simulation-Based Power Grid (Paired Two-Sided Wilcoxon)",
+    x = "Number of subjects (paired control/treated)",
+    y = "Mean proportion shift (treated - control)",
+    fill = "Power"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+## 8) Optional: Use Posterior Draws to Drive Power Simulation
+
+A stronger workflow is to sample `(mu_control, treatment effect, phi, sd_subject)` from model posterior draws per cluster, then propagate uncertainty into power estimates.
+
+```{r posterior-driven-power, eval=FALSE}
+# Example for one fitted cluster:
+cl <- names(fits)[1]
+fit <- fits[[cl]]
+
+draws <- as_draws_df(fit)
+
+# You may need to adapt treatment coefficient naming by factor level coding.
+# Here we assume b_treatmenttreated exists.
+
+posterior_power <- replicate(200, {
+  i <- sample(seq_len(nrow(draws)), 1)
+
+  b0 <- draws$b_Intercept[i]
+  bt <- draws$b_treatmenttreated[i]
+  phi <- draws$phi[i]
+  sd_subj <- draws$sd_subject__Intercept[i]
+
+  mu_control <- plogis(b0)
+  mu_treated <- plogis(b0 + bt)
+
+  power_in_bin(
+    n_subject = 40,
+    mu_control = mu_control,
+    mean_shift = mu_treated - mu_control,
+    phi = phi,
+    sd_subject = sd_subj,
+    n_sims = 200
+  )
+})
+
+summary(posterior_power)
+```
+
+## 9) Limitations, Comparison to G*Power, and Why Simulation
+
+### Key limitations in this workflow
+
+- Cluster proportions are compositional (sum to 1). Modeling each cluster independently with beta models ignores simplex constraints.
+- Metadata quality in public integrated datasets varies (missing IDs, harmonization artifacts, uneven sampling).
+- Wilcoxon tests target rank-based shifts and do not directly model compositional dependencies or hierarchical count generation.
+- Power estimates depend strongly on assumptions for subject variance, dispersion, dropout, and treatment shift.
+
+### Differences from G*Power
+
+- G*Power is analytic and built around classical test families with standardized effect sizes.
+- scRNA-seq proportion problems often violate simple parametric assumptions (bounded outcomes, zero inflation, hierarchy, compositionality).
+- Simulation can incorporate realistic design details: subject pairing, unequal cells per sample, cluster prevalence, and non-normal distributions.
+
+### Why choose simulation-based power
+
+- Better alignment with real data-generating processes in single-cell studies.
+- Directly stress-tests design sensitivity across plausible biological and technical variability.
+- Produces interpretable design maps (power grids) rather than a single point estimate.
+- Naturally extends to posterior predictive workflows from Bayesian models.
+
+## 10) Next Practical Steps
+
+1. Verify and lock exact metadata column names in `.obs` for subject/treatment/cluster.
+2. Fit cluster-specific models for biologically relevant clusters.
+3. Replace anchor values (`mu0`, `phi0`, variance) with posterior draws per cluster.
+4. Export final power grid tables and figures for study design documentation.
