@@ -1,0 +1,39 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import 'katex/dist/katex.min.css';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('research');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={project.data.title} description={project.data.excerpt}>
+  <article class="page-wrap fade-trail">
+    <p class="meta">
+      <a href="/research/">Research</a>
+      {project.data.status && <> · {project.data.status}</>}
+    </p>
+    <h1>{project.data.title}</h1>
+    {project.data.excerpt && <p class="lede">{project.data.excerpt}</p>}
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .lede {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: var(--measure);
+    margin-top: 0;
+  }
+</style>

@@ -1,176 +1,58 @@
 # GWMcElfresh.github.io
 
-Personal academic website for GW McElfresh - Computational Biology PhD
+Personal academic site for **GW McElfresh** — infectious disease computational biologist with a mathematics background.
 
-🔗 **Live Site**: [https://gwmcelfresh.github.io](https://gwmcelfresh.github.io)
+**Live:** [https://GWMcElfresh.github.io](https://GWMcElfresh.github.io)
 
----
+## Stack
 
-## About
+- **[Astro](https://astro.build/)** static site (content collections + islands)
+- **GitHub Actions → GitHub Pages** (`withastro/action` + `actions/deploy-pages`)
+- Visual thesis: **stochastic processes in biology** (canvas Gillespie-like hero, KaTeX, Fraunces + IBM Plex)
 
-This is an academic portfolio website built with [Jekyll](https://jekyllrb.com/) and hosted on [GitHub Pages](https://pages.github.com/). It showcases research, publications, CV, and blog posts related to computational biology, transcriptomics, and mathematical modeling.
+Jekyll / Tactile has been retired from the public path.
 
-## Features
+## Local development
 
-- **Multi-page structure**: Separate pages for About, Research, Publications, CV, and Blog
-- **Modern navigation**: Clean navigation bar with active page highlighting
-- **Responsive design**: Mobile-friendly layout
-- **Custom styling**: Purple gradient theme with modern CSS
-- **Research project pages**: Collection-based system for individual research projects
-- **Blog functionality**: Jekyll blog with post archives and RSS feed
-- **SEO optimized**: Using jekyll-seo-tag plugin
-
-## Site Structure
-
-```
-.
-├── _config.yml              # Jekyll configuration
-├── index.md                 # Home/About page
-├── research.md              # Research overview
-├── publications.md          # Publications list
-├── cv.md                    # Curriculum Vitae
-├── blog.md                  # Blog landing page
-├── _layouts/
-│   └── default.html         # Custom layout with navigation
-├── _includes/
-│   └── navigation.html      # Navigation component
-├── _posts/                  # Blog posts (YYYY-MM-DD-title.md format)
-├── _research/               # Individual research project pages
-├── assets/
-│   └── css/
-│       └── custom.css       # Custom styling
-└── images/                  # Image assets
-    └── self/                # Personal photos
+```bash
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # output → dist/
+npm run preview
 ```
 
-## Local Development
+Requires Node 18+.
 
-### Prerequisites
+## Site map
 
-- Ruby 2.5.0 or higher
-- Bundler
-- Git
+| Route | Source |
+|-------|--------|
+| `/` | `src/pages/index.astro` + `StochasticHero` |
+| `/research/` | `src/pages/research/index.astro` |
+| `/research/:slug/` | `src/content/research/` |
+| `/publications/` | `src/pages/publications.md` |
+| `/cv/` | `src/pages/cv.md` (+ PDF at `/assets/cv/McElfresh_CV.pdf`) |
+| `/blog/` | `src/pages/blog/` + `src/content/blog/` |
+| `/rss.xml` | `src/pages/rss.xml.ts` |
 
-### Setup
+Identity strings live in [`src/data/site.ts`](src/data/site.ts). Design tokens: [`src/styles/tokens.css`](src/styles/tokens.css).
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/GWMcElfresh/GWMcElfresh.github.io.git
-   cd GWMcElfresh.github.io
-   ```
+## Content editing
 
-2. Install dependencies:
-   ```bash
-   bundle install
-   ```
+- **Blog:** add `src/content/blog/YYYY-MM-DD-slug.md` (frontmatter: `title`, `date`, `excerpt`). URLs preserve `/blog/YYYY/MM/DD/slug/`.
+- **Research projects:** add `src/content/research/slug.md` (`title`, `excerpt`, `status`, `order`). They appear automatically on `/research/`.
+- **Math:** use `$inline$` or `$$display$$` (remark-math + rehype-katex).
+- **CV PDF source:** `assets/cv/McElfresh_CV.tex` (dual-maintained with `src/pages/cv.md` — keep in sync).
 
-3. Run local server:
-   ```bash
-   bundle exec jekyll serve
-   ```
+## Deploy cutover (one-time)
 
-4. View site at `http://localhost:4000`
+1. Merge this Astro site to `master`.
+2. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+3. Confirm the **Deploy to GitHub Pages** workflow succeeds.
+4. Site publishes from the Actions artifact (not the old branch/Jekyll build).
 
-### Making Changes
+Workflow: [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 
-- **Pages**: Edit `.md` files in the root directory
-- **Blog posts**: Add to `_posts/` as `YYYY-MM-DD-title.md` with YAML front matter
-- **Research projects**: Add to `_research/` directory
-- **Styling**: Modify `assets/css/custom.css`
-- **Configuration**: Update `_config.yml`
+## Mycelium / analysis dirs
 
-## Content Organization
-
-### Adding a Blog Post
-
-Create a file in `_posts/` with the format `YYYY-MM-DD-post-title.md`:
-
-```markdown
----
-title: "Your Post Title"
-date: YYYY-MM-DD
----
-
-Your content here...
-```
-
-### Adding a Research Project
-
-Create a file in `_research/` with descriptive name:
-
-```markdown
----
-layout: default
-title: "Project Title"
----
-
-# Project Title
-
-Project content...
-```
-
-The project will automatically be available at `/research/filename/`
-
-## Customization
-
-### Update Personal Information
-
-Edit `_config.yml`:
-
-```yaml
-title: Your Name
-tagline: Your Title
-email: your.email@domain.com
-github_username: yourusername
-orcid: your-orcid-id
-google_scholar: your-scholar-id
-```
-
-### Change Color Scheme
-
-Edit `assets/css/custom.css` and modify the gradient colors in `.site-nav` and `.btn`:
-
-```css
-background: linear-gradient(135deg, #yourcolor1 0%, #yourcolor2 100%);
-```
-
-### Add Pages to Navigation
-
-Edit the `navigation` section in `_config.yml`:
-
-```yaml
-navigation:
-  - title: Your Page
-    url: /your-page
-```
-
-## Deployment
-
-The site automatically deploys via GitHub Pages when you push to the `master` branch. Changes are typically live within 1-2 minutes.
-
-## Technologies Used
-
-- **Jekyll**: Static site generator
-- **GitHub Pages**: Hosting
-- **Tactile Theme**: Base theme (pages-themes/tactile@v0.2.0)
-- **Markdown**: Content authoring
-- **Liquid**: Templating
-- **CSS3**: Custom styling
-- **jekyll-seo-tag**: SEO optimization
-- **jekyll-feed**: RSS feed generation
-
-## License
-
-Content © 2026 GW McElfresh. All rights reserved.
-
-Code is available under the MIT License.
-
-## Contact
-
-For questions or collaboration inquiries, please contact via:
-- Email: [Your email from _config.yml]
-- GitHub: [@GWMcElfresh](https://github.com/GWMcElfresh)
-
----
-
-*Last updated: February 2026*
+`.living/`, `analysis/`, `data/`, `todo/`, etc. are **not** part of the public Astro build. Only `src/`, `public/`, and config drive `dist/`.

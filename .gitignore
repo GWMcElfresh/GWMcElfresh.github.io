@@ -1,48 +1,85 @@
-# Jekyll build artifacts
+# Dependencies & build
+node_modules/
+dist/
+.astro/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Env
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# Jekyll leftover
 _site/
 .sass-cache/
 .jekyll-cache/
-.jekyll-metadata
+.jekyll-metadata/
+vendor/bundle/
 
-# Ruby/Bundler
-vendor/
-.bundle/
-Gemfile.lock
-
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# Editors
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.project
-
-# Environment
-.env
-.env.local
-
-# Logs
+# LaTeX aux
+*.aux
 *.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
 
-# Temporary files
-*.tmp
-*.bak
+# Large / local
+*.h5ad
+*.rds
+*.RData
 
-# R Markdown
-*.knit.md
-*_cache/
-*_files/
+# Mycelium living-repo + Cursor local scaffolding
+# Runtime memory, hooks, session state, and generated agent entrypoints.
+# Keep site content (pages, posts, assets) tracked; do not ignore those here.
+.cursor/
+.living/
+skillpacks/
+todo/
+AGENTS.md
+CLAUDE.md
+ENVIRONMENTS_INSTALLATIONS.md
 
-# Personal notes (optional - remove if you want to track these)
-notes/
-drafts/
+# Mycelium analysis-layout scaffold (init stubs only).
+# algorithms/, data/, reference_material/ currently hold only mycelium manifests/templates.
+# analysis/ also has real site notebooks/reports — ignore mycelium stubs there, not the folder.
+algorithms/
+data/
+reference_material/
+analysis/ANALYSIS_MANIFEST.md
+analysis/_README_TEMPLATE.md
+**/ANALYSIS_MANIFEST.md
+**/DATA_MANIFEST.md
+**/ALGORITHM_MANIFEST.md
+**/REFERENCE_MANIFEST.md
+
+# LLM / agent scaffolding & audit artifacts (not site content)
+SCAFFOLDING_SUMMARY.md
+SETUP_GUIDE.md
+analysis/repo-scan-report.md
+analysis/proposed-topics.md
+analysis/rmd-conversion-recommendations.md
+analysis/generate-drafts-report.md
+analysis/audit-posts-report.md
+.github/agents/
+.github/copilot-instructions.md
+
+# Marimo local session cache (regenerated; not site content)
+**/__marimo__/

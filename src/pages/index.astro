@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StochasticHero from '../components/StochasticHero.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout description={site.description} bodyClass="page-home">
+  <StochasticHero />
+
+  <div class="page-wrap fade-trail">
+    <section class="prose about-section">
+      <h2>About</h2>
+      <p>
+        Understanding how stochastic processes shape infection is critical because
+        population-level measurements hide cell-to-cell and tissue-scale variability. I am an
+        infectious disease computational biologist with a BS in mathematics and physics and a PhD
+        in computational biology. My work asks how birth–death, inheritance, and rare-state
+        switching determine host–pathogen outcomes, and how those dynamics can be read from
+        single-cell and spatial transcriptomes.
+      </p>
+      <p>
+        At OHSU / ONPRC, I build integrative frameworks for spatial and single-cell data in
+        nonhuman primate models of SIV and <em>Mycobacterium tuberculosis</em>. These systems
+        connect local cellular state to tissue organization, which makes it possible to ask whether
+        rare infected or immune states persist, spread, or resolve across scales. Alongside that
+        work, I develop open tools for navigating immune and viral gene spaces.
+      </p>
+      <p>
+        Earlier, I used Gillespie-style and agent-based models to study stress signaling and
+        antibiotic tolerance in <em>E. coli</em>, where molecular fluctuations link to slower
+        physiological outcomes. That scale-bridging approach continues to organize how I interpret
+        infection and immunity.
+      </p>
+      <p class="meta" style="margin-top: 1.5rem">{site.location}</p>
+    </section>
+  </div>
+</BaseLayout>

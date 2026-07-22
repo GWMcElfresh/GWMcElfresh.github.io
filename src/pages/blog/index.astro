@@ -1,0 +1,114 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+function postUrl(id: string, date: Date) {
+  const y = date.getUTCFullYear();
+  const m = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const d = String(date.getUTCDate()).padStart(2, '0');
+  // id may be "2025-01-15-spatial-transcriptomics-intro" — strip date prefix for slug
+  const slug = id.replace(/^\d{4}-\d{2}-\d{2}-/, '');
+  return `/blog/${y}/${m}/${d}/${slug}/`;
+}
+
+const byYear = Map.groupBy
+  ? Map.groupBy(posts, (p) => p.data.date.getUTCFullYear())
+  : posts.reduce((acc, p) => {
+      const y = p.data.date.getUTCFullYear();
+      const list = acc.get(y) ?? [];
+      list.push(p);
+      acc.set(y, list);
+      return acc;
+    }, new Map<number, typeof posts>());
+
+const years = [...byYear.keys()].sort((a, b) => b - a);
+---
+
+<BaseLayout
+  title="Blog"
+  description="Working notes on spatial omics, stochastic modeling, and infectious disease computation — how responses that look clear at one scale can become ambiguous at another."
+>
+  <div class="page-wrap fade-trail">
+    <header class="prose">
+      <h1>Blog</h1>
+      <p>
+        Working notes from the intersection of spatial omics, stochastic modeling, and
+        infectious disease computation: how a response that looks clear at one scale can
+        become ambiguous at another, and which methods make that relationship testable.
+        <a href="/rss.xml">RSS</a>
+      </p>
+    </header>
+
+    <section class="prose">
+      <h2>Recent</h2>
+      <ul class="post-list">
+        {
+          posts.map((post) => (
+            <li>
+              <time class="meta" datetime={post.data.date.toISOString()}>
+                {post.data.date.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  timeZone: 'UTC',
+                })}
+              </time>
+              <a href={postUrl(post.id, post.data.date)}>{post.data.title}</a>
+              {post.data.excerpt && <p class="excerpt">{post.data.excerpt}</p>}
+            </li>
+          ))
+        }
+      </ul>
+
+      <h2>Archive</h2>
+      {
+        years.map((year) => (
+          <div>
+            <h3 class="pub-year">{year}</h3>
+            <ul>
+              {(byYear.get(year) ?? []).map((post) => (
+                <li>
+                  <a href={postUrl(post.id, post.data.date)}>{post.data.title}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .post-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .post-list li {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-list time {
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .post-list a {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    text-decoration: none;
+  }
+
+  .excerpt {
+    margin: 0.4rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.98rem;
+  }
+</style>
