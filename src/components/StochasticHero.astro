@@ -1,7 +1,7 @@
 ---
 /**
  * Full-bleed stochastic process hero.
- * Client island: Gillespie-like state-switching particles with trail fade.
+ * Client island: run-and-tumble rods with Gillespie-like state-switching and trail fade.
  */
 import { site } from '../data/site';
 ---
@@ -27,8 +27,10 @@ import { site } from '../data/site';
   type Agent = {
     x: number;
     y: number;
-    vx: number;
-    vy: number;
+    theta: number; // heading (radians)
+    speed: number;
+    length: number; // major-axis half-extent proxy for draw scale
+    width: number;
     state: 0 | 1; // 0 susceptible-like, 1 activated/infected-like
     trail: { x: number; y: number }[];
   };
@@ -50,8 +52,13 @@ import { site } from '../data/site';
     let mouse = { x: -9999, y: -9999, active: false };
 
     const COUNT = isMobile ? 48 : 90;
-    const TRAIL = isMobile ? 10 : 18;
+    const TRAIL = isMobile ? 14 : 26;
     const SWITCH_RATE = 0.004; // per-frame state flip probability (Gillespie-ish)
+    const TUMBLE_RATE = 0.018; // per-frame tumble probability
+    const ROT_DIFFUSION = 0.035; // small heading noise during runs
+    const BASE_SPEED = isMobile ? 0.72 : 0.82;
+    const SPEED_JITTER = 0.18;
+    const MOUSE_TURN = 0.08; // heading bias toward pointer
     const ACCENT = { r: 61, g: 207, b: 182 };
     const MUTED = { r: 107, g: 122, b: 114 };
 
@@ -66,12 +73,15 @@ import { site } from '../data/site';
     }
 
     function spawn(): Agent {
+      const state: 0 | 1 = Math.random() < 0.18 ? 1 : 0;
       return {
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        state: Math.random() < 0.18 ? 1 : 0,
+        theta: Math.random() * Math.PI * 2,
+        speed: BASE_SPEED + (Math.random() - 0.5) * SPEED_JITTER,
+        length: state === 1 ? 7.5 : 5.2,
+        width: state === 1 ? 2.2 : 1.5,
+        state,
         trail: [],
       };
     }
@@ -80,32 +90,35 @@ import { site } from '../data/site';
       agents = Array.from({ length: COUNT }, spawn);
     }
 
+    function syncBodyFromState(a: Agent) {
+      a.length = a.state === 1 ? 7.5 : 5.2;
+      a.width = a.state === 1 ? 2.2 : 1.5;
+    }
+
     function step() {
       for (const a of agents) {
-        // Brownian kick
-        a.vx += (Math.random() - 0.5) * 0.08;
-        a.vy += (Math.random() - 0.5) * 0.08;
+        // Run: small rotational diffusion for zest without sideways slides
+        a.theta += (Math.random() - 0.5) * 2 * ROT_DIFFUSION;
 
-        // Soft mouse attract
+        // Occasional tumble: large random reorient
+        if (Math.random() < TUMBLE_RATE) {
+          a.theta += (Math.random() - 0.5) * Math.PI * 1.6;
+        }
+
+        // Soft mouse heading bias (turn-to-mouse, not free velocity shove)
         if (mouse.active) {
-          const dx = mouse.x - a.x;
-          const dy = mouse.y - a.y;
-          const dist2 = dx * dx + dy * dy + 80;
-          a.vx += (dx / dist2) * 12;
-          a.vy += (dy / dist2) * 12;
+          const desired = Math.atan2(mouse.y - a.y, mouse.x - a.x);
+          let dTheta = desired - a.theta;
+          while (dTheta > Math.PI) dTheta -= Math.PI * 2;
+          while (dTheta < -Math.PI) dTheta += Math.PI * 2;
+          a.theta += dTheta * MOUSE_TURN;
         }
 
-        // Damping + speed cap
-        a.vx *= 0.985;
-        a.vy *= 0.985;
-        const speed = Math.hypot(a.vx, a.vy);
-        if (speed > 1.8) {
-          a.vx = (a.vx / speed) * 1.8;
-          a.vy = (a.vy / speed) * 1.8;
-        }
-
-        a.x += a.vx;
-        a.y += a.vy;
+        // Velocity along major axis
+        const vx = a.speed * Math.cos(a.theta);
+        const vy = a.speed * Math.sin(a.theta);
+        a.x += vx;
+        a.y += vy;
 
         // Wrap
         if (a.x < 0) a.x += width;
@@ -116,6 +129,7 @@ import { site } from '../data/site';
         // Stochastic state switch
         if (Math.random() < SWITCH_RATE) {
           a.state = a.state === 0 ? 1 : 0;
+          syncBodyFromState(a);
         }
 
         a.trail.push({ x: a.x, y: a.y });
@@ -123,9 +137,34 @@ import { site } from '../data/site';
       }
     }
 
+    function drawCapsule(a: Agent, alpha: number) {
+      const c = a.state === 1 ? ACCENT : MUTED;
+      const len = a.length;
+      const w = a.width;
+      ctx!.save();
+      ctx!.translate(a.x, a.y);
+      ctx!.rotate(a.theta);
+      ctx!.beginPath();
+      if (typeof ctx!.roundRect === 'function') {
+        ctx!.roundRect(-len / 2, -w / 2, len, w, w / 2);
+      } else {
+        // Stadium fallback: rect + end caps
+        const halfL = len / 2 - w / 2;
+        ctx!.moveTo(-halfL, -w / 2);
+        ctx!.lineTo(halfL, -w / 2);
+        ctx!.arc(halfL, 0, w / 2, -Math.PI / 2, Math.PI / 2);
+        ctx!.lineTo(-halfL, w / 2);
+        ctx!.arc(-halfL, 0, w / 2, Math.PI / 2, -Math.PI / 2);
+        ctx!.closePath();
+      }
+      ctx!.fillStyle = `rgba(${c.r},${c.g},${c.b},${alpha})`;
+      ctx!.fill();
+      ctx!.restore();
+    }
+
     function draw() {
       // Trail fade via translucent clear
-      ctx!.fillStyle = 'rgba(10, 14, 18, 0.18)';
+      ctx!.fillStyle = 'rgba(10, 14, 18, 0.16)';
       ctx!.fillRect(0, 0, width, height);
 
       for (const a of agents) {
@@ -136,14 +175,13 @@ import { site } from '../data/site';
           for (let i = 1; i < a.trail.length; i++) {
             ctx!.lineTo(a.trail[i].x, a.trail[i].y);
           }
-          ctx!.strokeStyle = `rgba(${c.r},${c.g},${c.b},${a.state === 1 ? 0.45 : 0.22})`;
-          ctx!.lineWidth = a.state === 1 ? 1.25 : 0.85;
+          ctx!.strokeStyle = `rgba(${c.r},${c.g},${c.b},${a.state === 1 ? 0.5 : 0.25})`;
+          ctx!.lineWidth = a.width;
+          ctx!.lineCap = 'round';
+          ctx!.lineJoin = 'round';
           ctx!.stroke();
         }
-        ctx!.beginPath();
-        ctx!.arc(a.x, a.y, a.state === 1 ? 2.2 : 1.4, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(${c.r},${c.g},${c.b},${a.state === 1 ? 0.9 : 0.5})`;
-        ctx!.fill();
+        drawCapsule(a, a.state === 1 ? 0.92 : 0.55);
       }
     }
 
@@ -163,14 +201,13 @@ import { site } from '../data/site';
           for (let i = 1; i < a.trail.length; i++) {
             ctx!.lineTo(a.trail[i].x, a.trail[i].y);
           }
-          ctx!.strokeStyle = `rgba(${c.r},${c.g},${c.b},${a.state === 1 ? 0.5 : 0.25})`;
-          ctx!.lineWidth = 1;
+          ctx!.strokeStyle = `rgba(${c.r},${c.g},${c.b},${a.state === 1 ? 0.55 : 0.28})`;
+          ctx!.lineWidth = a.width;
+          ctx!.lineCap = 'round';
+          ctx!.lineJoin = 'round';
           ctx!.stroke();
         }
-        ctx!.beginPath();
-        ctx!.arc(a.x, a.y, 1.8, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(${c.r},${c.g},${c.b},0.75)`;
-        ctx!.fill();
+        drawCapsule(a, 0.78);
       }
     }
 
